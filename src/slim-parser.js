@@ -2,17 +2,17 @@
  * Created by noamc on 1/3/16.
  */
 
-module.exports.SlimParser = function(){
+module.exports.SlimParser = SlimParser;
 
-};
+function SlimParser(){};
 
-module.exports.SlimParser.prototype.parse= function(instruction){
+SlimParser.prototype.parse= function(instruction){
     var json = slimToArray(instruction);
 
     return JSON.parse(json);
 }
 
-module.exports.SlimParser.prototype.stringify= function(arr){
+SlimParser.prototype.stringify= function(arr){
     var arr = arrayToSlim(arr);
 
     var result =  pad(arr.length+3) +":[" + arr + ":]";
