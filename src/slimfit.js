@@ -27,14 +27,16 @@ var server = net.createServer(function(socket) {
         }
         if(buf.length-lenHeader.length==instructionLength)
         {
-            doInstruction(buf.substr(lenHeader.length),socket);
+            doInstruction(buf.substr(lenHeader.length),function(result){
+                socket.write(result);
+            });
             buf="";
         }
     });
 
 }).listen(process.argv[process.argv.length - 1]);
 
-function doInstruction(instruction,socket){
+function doInstruction(instruction,cb){
     var arr = SlimParser.parse(instruction);
 
     LOG(">> " + JSON.stringify(arr));
@@ -48,7 +50,7 @@ function doInstruction(instruction,socket){
             SearchPaths.push(ins[2]);
             var slim = SlimParser.stringify([[id,"OK"]]);
 
-            socket.write(slim);
+            cb(slim);
         }
     }
 }
