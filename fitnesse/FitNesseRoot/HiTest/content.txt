@@ -1,0 +1,7 @@
+!contents -R2 -g -p -f -h
+
+|import|
+|greeter|
+
+|script|Greeter|
+|check|hello|Decaf|Hello Decaf!|
