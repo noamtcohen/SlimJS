@@ -11,6 +11,6 @@ cd fitnesse
 java -jar fitnesse-standalone.jar -p 8080
 ```
 
-[http://localhost:8080/HiTest?test](http://localhost:8080/HiTest?test)
+[http://localhost:8080/SlimFitTest?test](http://localhost:8080/SlimFitTest?test)
 
 work in progress...
