@@ -15,12 +15,11 @@ SlimParser.prototype.parse= function(instruction){
 SlimParser.prototype.stringify= function(arr){
     var arr = arrayToSlim(arr);
 
-    var result =  pad(arr.length+3) +":[" + arr + ":]";
+    var result =  pad(arr.length+2) +":[" + arr + "]";
     return result;
 }
 
 function arrayToSlim(arr){
-
     var result = pad(arr.length) + ":"
     for(var i=0;i<arr.length;i++){
 
@@ -28,7 +27,7 @@ function arrayToSlim(arr){
         if(Array.isArray(elm))
         {
             var a = arrayToSlim(elm)
-            result += pad(a.length+2) +":["+ a + "]";
+            result += pad(a.length+2) +":["+ a + "]:";
         }
         else
         {
@@ -55,7 +54,7 @@ function slimToArray(slim){
         if(elm[0]==='[')
             result += slimToArray(elm) + ",";
         else
-            result += '"' + elm + "\",";
+            result += '"' + elm.replace(/"/g,'\\"') + '",';
 
         cur += elmHeader.length + elm.length+2;
     }

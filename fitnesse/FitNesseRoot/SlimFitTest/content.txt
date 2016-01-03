@@ -1,5 +1,8 @@
-|import|
+|import |
 |greeter|
 
-|script|Greeter|
-|check|hello|Decaf|Hello Decaf!|
+
+|script|Greeter|ctorArg|100                 |
+|check |hello  |Hi     |Hello Hi! (ctorArg) |
+|check |hello  |Too    |Hello Too! (ctorArg)|
+|check |foo    |bar_100                     |
