@@ -1,5 +1,4 @@
 ## SlimFit
 A Node.js SliM server for Fitnesse
 
-
-[Fitnesse](http://www.fitnesse.org/) 
+[![fitnesse](logo/fitnesse-logo-large.png =250x)](http://www.fitnesse.org/) 
