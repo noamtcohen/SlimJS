@@ -1,5 +1,5 @@
 ## SlimFit
-A Node.js SliM server for FitNesse 
+A Async Node.js SliM server for FitNesse
 
 [![fitnesse](logo/fitnesse-logo-small.png)](http://www.fitnesse.org/) 
 
@@ -11,6 +11,6 @@ cd fitnesse
 java -jar fitnesse-standalone.jar -p 8080
 ```
 
-[http://localhost:8080/SlimFitTest?test](http://localhost:8080/SlimFitTest?test)
+[http://localhost:8080](http://localhost:8080)
 
 work in progress...
