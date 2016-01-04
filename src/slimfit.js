@@ -10,7 +10,6 @@ var net = require('net'),
 var fixtureFolder = path.join(process.cwd(),process.argv[process.argv.length - 2]);
 LOG(fixtureFolder);
 
-
 var CreatedObjects = {};
 var Symbols = {};
 var LibraryInstances = [];

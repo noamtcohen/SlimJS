@@ -1,8 +1,10 @@
 |import |
 |greeter|
 
-
 |script|Greeter|ctorArg|100                 |
 |check |hello  |Hi     |Hello Hi! (ctorArg) |
 |check |hello  |Too    |Hello Too! (ctorArg)|
 |check |foo    |bar_100                     |
+
+|script|Greeter|ctorArg|34|
+|check |foo    |bar_34    |
