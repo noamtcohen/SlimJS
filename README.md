@@ -21,7 +21,8 @@ node src/udp-logger.js
 work in progress...
 
 --
-`cb(err,value)` is how to return values back to FitNesse
+use `cb(err,value)` to return values back to FitNesse
+
 ### Passing tests
 #### Decision Table
 
