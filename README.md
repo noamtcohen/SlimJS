@@ -34,7 +34,7 @@ var eg={
 
         this.setNumerator = function(n,cb){
             num = n;
-            cb(null,null);
+            cb(null,null);  //cb(err,return_value)
         }
         this.setDenominator = function(n,cb){
             denom=n;
