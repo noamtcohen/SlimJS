@@ -16,7 +16,7 @@ java -jar fitnesse-standalone.jar -p 8080
 work in progress...
 
 --
-`cb(err,return_value)` is how to return values back to FitNesse
+`cb(err,value)` is how to return values back to FitNesse
 ### Passing tests
 #### Decision Table
 
