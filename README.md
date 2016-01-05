@@ -6,11 +6,14 @@ An Async Node.js SliM server for FitNesse
 Visit [FitNesse](http://www.fitnesse.org/) and say hi to Uncle Bob!
 
 ```
-node src/udp-logger.js
 cd fitnesse
 java -jar fitnesse-standalone.jar -p 8080
 ```
-
+ To start the UDP logger (for debugging)
+ ```
+ node src/udp-logger.js
+ ```
+ 
 [http://localhost:8080](http://localhost:8080)
 
 work in progress...
