@@ -2,11 +2,22 @@
 |slim-fit-test|
 
 Decision Table
-|Division                       |
+|eg.Division                       |
 |numerator|denominator|quotient?|
 |10       |2          |5        |
 |12.6     |3          |4.2      |
 |100      |4          |33       |
+
+|should I buy milk                                              |
+|cash in wallet|credit card|pints of milk remaining|go to store?|
+|0             |no         |0                      |no          |
+|10            |no         |0                      |yes         |
+|0             |yes        |0                      |yes         |
+|10            |yes        |0                      |yes         |
+|0             |no         |1                      |no          |
+|10            |no         |1                      |no          |
+|0             |yes        |1                      |no          |
+|10            |yes        |1                      |nope        |
 
 Script Table
 |script|Greeter|ctorArg|100                |

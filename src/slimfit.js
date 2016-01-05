@@ -34,6 +34,7 @@
                 var instructionArray = SlimParser.parse(buf.substr(lenHeader.length));
 
                 doInstructionSet(instructionArray, function (result) {
+                    LOG("<< " + JSON.stringify(result));
                     var slim = SlimParser.stringify(result);
                     socket.write(slim);
                 });
@@ -80,7 +81,7 @@
                         err = SearchPaths.load(jsfile.toString());
 
                     if(err)
-                        return cb([id, "__EXCEPTION__:"+err]);
+                        return cb([id, toException(err)]);
 
                     cb([id, "OK"]);
                 });
@@ -95,9 +96,11 @@
                 var obj = SearchPaths.make(instanceType, args);
 
                 if(typeof obj === 'string')
-                   return cb([id,"__EXCEPTION__:"+obj]);
+                    return cb([id,toException(obj)]);
+
 
                 CreatedObjects[instanceName] = obj;
+
                 cb([id, 'OK']);
             }
 
@@ -105,18 +108,20 @@
                 var instanceName = ins[2];
                 var funName = ins[3];
 
-                var isDecisionTable = false;
-                if(instanceName.indexOf("decisionTable")===0)
-                    isDecisionTable = true;
+                var isDecisionTable = instanceName.indexOf("decisionTable")===0;
+                var isSetFunction = funName.indexOf('set')===0;
 
-                var args = ins.slice(4);
 
-                args.push(function (err,ret) {
-                    if(err)
-                        return cb([id, "__EXCEPTION__:"+err]);
+                var args = ins.slice(4) || [];
 
-                    cb([id, ret.toString()]);
-                });
+                if(!isSetFunction) {
+                    args.push(function (err, ret) {
+                        if (err)
+                            return cb([id, toException(err)]);
+
+                        cb([id, ret.toString()]);
+                    });
+                }
 
                 try{
                     var theFunc = CreatedObjects[instanceName][funName];
@@ -125,16 +130,19 @@
 
                     theFunc.apply(null, args);
 
-                    if(funName.indexOf('set')===0)
+                    if(isSetFunction)
                         cb([id,"OK"]);
                 }
                 catch(e){
-                    cb([id,"__EXCEPTION__:"+e]);
+                    cb([id,toException(e)]);
                 }
             }
         }
     }
 
+    function toException(e){
+        return "__EXCEPTION__:message:<<"+e+">>";
+    }
 }());
 
 //function exit(){
