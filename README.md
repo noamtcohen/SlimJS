@@ -15,8 +15,8 @@ java -jar fitnesse-standalone.jar -p 8080
 
 work in progress...
 
-### Passing tests
 --
+### Passing tests
 #### Decision Table
 
 |eg.Division                  |||
