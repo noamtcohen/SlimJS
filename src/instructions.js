@@ -3,7 +3,7 @@
  */
 
 
-(function(exports){
+(function (exports) {
 
     var fs = require('fs'),
         path = require('path'),
@@ -11,31 +11,33 @@
 
     exports.Instructions = Instructions;
 
-    function Instructions(ObjectPool,fixtureFolder){
-        this.ObjectPool = ObjectPool;
+    function Instructions(fixtureFolder) {
+        this.ObjectPool = {};
+        this.Library = {};
+        this.Symbols = {};
         this.fixtureFolder = fixtureFolder;
     }
 
     var proto = Instructions.prototype;
 
-    proto.import = function(ins,cb){
+    proto.import = function (ins, cb) {
         var id = ins[0];
 
         var jsPath = path.join(this.fixtureFolder, ins[2] + ".js");
 
         fs.readFile(jsPath, function (err, jsfile) {
 
-            if(!err)
+            if (!err)
                 err = SearchPaths.load(jsfile.toString());
 
-            if(err)
+            if (err)
                 return cb([id, toException(err)]);
 
             cb([id, "OK"]);
         });
     }
 
-    proto.make = function(ins,cb){
+    proto.make = function (ins, cb) {
         var id = ins[0];
 
         var instanceName = ins[2];
@@ -45,56 +47,71 @@
 
         var obj = SearchPaths.make(instanceType, args);
 
-        if(typeof obj === 'string')
-            return cb([id,toException(obj)]);
+        if (typeof obj === 'string')
+            return cb([id, toException(obj)]);
 
 
-        this.ObjectPool[instanceName] = obj;
+        var isLibraryObject = instanceName.indexOf('library') === 0;
+        if (isLibraryObject)
+            this.Library[instanceName] = obj;
+        else
+            this.ObjectPool[instanceName] = obj;
 
         cb([id, 'OK']);
     }
 
-    proto.call = function(ins,cb){
+    proto.call = function (ins, cb, symbolNameToAssignTo) {
         var id = ins[0];
 
         var instanceName = ins[2];
         var funName = ins[3];
 
-        var isDecisionTable = instanceName.indexOf("decisionTable")===0;
-        var isSetFunction = funName.indexOf('set')===0;
-
-
         var args = ins.slice(4) || [];
 
-        if(!isSetFunction) {
-            args.push(function (err, ret) {
-                if (err)
-                    return cb([id, toException(err)]);
+        args.push(function (err, ret) {
+            if (err)
+                return cb([id, toException(err)]);
 
-                cb([id, ret.toString()]);
-            });
-        }
+            if (symbolNameToAssignTo)
+                this.Symbols[symbolNameToAssignTo] = ret||VOID;
 
-        try{
+            cb([id, ret ? ret.toString() : VOID]);
+        });
+
+        try {
             var theFunc = this.ObjectPool[instanceName][funName];
-            if(isDecisionTable && !theFunc && (funName=='beginTable' || 'endTable' || 'reset' || 'execute' || 'table'))
-                return cb([id,"OK"]);
+            if (!theFunc && (funName == 'beginTable' || funName == 'endTable' || funName == 'reset' || funName == 'execute' || funName == 'table'))
+                return cb([id, VOID]);
 
             theFunc.apply(null, args);
-
-            if(isSetFunction)
-                cb([id,"OK"]);
         }
-        catch(e){
-            if(!this.ObjectPool[instanceName])
-                cb([id,toException("?")]);
-
-            cb([id,toException(e)]);
+        catch (e) {
+            if (!this.ObjectPool[instanceName])
+                cb([id, toException("?")]);
+            else
+                cb([id, toException(e)]);
         }
     }
 
-    function toException(e){
-        return "__EXCEPTION__:message:<<"+e+">> " + (e.stack || "");
+    proto.callAndAssign = function (ins, cb) {
+        var symbolName = ins.splice(2, 1);
+
+        this.call(ins, cb, symbolName);
     }
+
+    proto.assign = function (ins, cb) {
+        var id = ins[0];
+        var symbol = ins[2];
+        var val = ins[3];
+        this.Symbols[symbol]=val;
+
+        cb([id, "OK"]);
+    }
+
+    function toException(e) {
+        return "__EXCEPTION__:message:<<" + e + ">> " + (e.stack || "");
+    }
+
+    var VOID = "/__VOID__/";
 
 }(module.exports));

@@ -1,11 +1,14 @@
 {
-  "name": "slim-fit",
+  "name": "slimjs",
   "version": "1.0.0",
-  "description": "NodeJS Slim Server for Fitnesse",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "An Async Node.js SliM server for FitNesse",
+  "bin": {
+    "slimfit": "./src/slimfit.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noamtcohen/SlimJS"
+  },
+  "author": "Noam T.Cohen",
   "license": "ISC"
 }

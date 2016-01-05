@@ -12,16 +12,19 @@ function ShouldIBuyMilk() {
     var _pints;
     var _creditCard;
 
-    this.setCashInWallet = function(dollars) {
+    this.setCashInWallet = function(dollars,cb) {
         _dollars = dollars;
+        cb(null,null);
     }
 
-    this.setPintsOfMilkRemaining=function(pints) {
+    this.setPintsOfMilkRemaining=function(pints,cb) {
         _pints = pints;
+        cb(null,null);
     }
 
-    this.setCreditCard = function(valid) {
+    this.setCreditCard = function(valid,cb) {
         _creditCard = "yes"===valid;
+        cb(null,null);
     }
 
     this.goToStore = function(cb) {
@@ -36,11 +39,13 @@ var eg={
         var num;
         var denom;
 
-        this.setNumerator = function(n){
+        this.setNumerator = function(n,cb){
             num = n;
+            cb(null,null);
         }
-        this.setDenominator = function(n){
+        this.setDenominator = function(n,cb){
             denom=n;
+            cb(null,null);
         }
         this.quotient = function(cb){
             cb(null,num/denom);

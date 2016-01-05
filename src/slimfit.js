@@ -6,12 +6,11 @@
 
     var fixtureFolder = path.join(process.cwd(), process.argv[process.argv.length - 2]);
 
-    var ObjectPool = {};
     var Symbols = {};
     var LibraryInstances = [];
     var Actors = [];
 
-    var Instructions = new instructions.Instructions(ObjectPool,fixtureFolder);
+    var Instructions = new instructions.Instructions(fixtureFolder);
 
     var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length - 1],onReceivedInstructionSet);
     tcpSlimServer.start();
@@ -41,19 +40,7 @@
     function doInstruction(ins, cb) {
         var cmd = ins[1];
 
-        if (cmd === 'import')
-            Instructions.import(ins,cb);
-
-        if (cmd === 'make')
-            Instructions.make(ins,cb);
-
-        if (cmd == 'call')
-            Instructions.call(ins,cb);
+        Instructions[cmd](ins,cb);
     }
 }());
-
-//function exit(){
-//    //this.socket.destroy();
-//    server.close();
-//};
 
