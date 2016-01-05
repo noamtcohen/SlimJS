@@ -1,4 +1,4 @@
-## SlimFit
+## SlimJS
 A Async Node.js SliM server for FitNesse
 
 [![fitnesse](logo/fitnesse-logo-small.png)](http://www.fitnesse.org/) 
