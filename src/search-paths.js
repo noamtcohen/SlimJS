@@ -22,10 +22,9 @@
             args = [];
 
         try {
-            /** DON'T LOOK AT THE NEXT THREE LINES ***/
             var ctor = JSON.stringify(args);
-            eval("var __TMP__=new " + name + "(" + ctor.substr(1, ctor.length - 2) + ")");
-            return __TMP__;
+            eval("var __OBJ__=new " + name + "(" + ctor.substr(1, ctor.length - 2) + ")");
+            return __OBJ__;
         }
         catch (e) {
             return e.toString();
