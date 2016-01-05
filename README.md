@@ -16,6 +16,7 @@ java -jar fitnesse-standalone.jar -p 8080
 work in progress...
 
 --
+`cb(err,return_value)` for async execution
 ### Passing tests
 #### Decision Table
 
@@ -34,7 +35,7 @@ var eg={
 
         this.setNumerator = function(n,cb){
             num = n;
-            cb(null,null);  //cb(err,return_value)
+            cb(null,null);
         }
         this.setDenominator = function(n,cb){
             denom=n;
