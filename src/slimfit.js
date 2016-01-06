@@ -6,10 +6,6 @@
 
     var fixtureFolder = path.join(process.cwd(), process.argv[process.argv.length - 2]);
 
-    var Symbols = {};
-    var LibraryInstances = [];
-    var Actors = [];
-
     var Instructions = new instructions.Instructions(fixtureFolder);
 
     var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length - 1],onReceivedInstructionSet);

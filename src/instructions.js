@@ -5,8 +5,7 @@
 
 (function (exports) {
 
-    var fs = require('fs'),
-        path = require('path'),
+    var path = require('path'),
         SearchPaths = require("./search-paths")
 
     exports.Instructions = Instructions;
@@ -25,11 +24,7 @@
 
         var jsPath = path.join(this.fixtureFolder, ins[2] + ".js");
 
-        fs.readFile(jsPath, function (err, jsfile) {
-
-            if (!err)
-                err = SearchPaths.load(jsfile.toString());
-
+        SearchPaths.loadFile(jsPath,function(err){
             if (err)
                 return cb([id, toException(err)]);
 
