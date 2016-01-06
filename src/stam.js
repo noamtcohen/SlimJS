@@ -2,13 +2,22 @@
  * Created by noamc on 1/6/16.
  */
 
-var vm = require('vm');
+var searchPaths = require('./search-paths');
 
-var sandbox = { require:require, __OBJ__:{}};
-vm.createContext(sandbox);
+searchPaths.loadFile("./fixtures/slim-fit-test.js",function(err){
+    if(err)
+        throw err;
 
+    searchPaths.loadFile("./fixtures/test-this-too.js",function(err){
+       if(err)
+            throw err;
 
-var ret = vm.createScript('__OBJ__=require("fs");',
-    'sandbox.vm').runInNewContext(sandbox);
+        var g = searchPaths.make("eg.Division");
+        console.log(g);
 
-console.log(sandbox.__OBJ__);
+        var tt = searchPaths.make("thisToo");
+        tt.goo(function(err,val){
+            console.log(val);
+        })
+    });
+});

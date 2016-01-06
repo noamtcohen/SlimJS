@@ -1,42 +1,41 @@
-(function () {
-    var path = require('path'),
-        LOG = require("./udp-logger").log,
-        slimtcp = require("./tcp-server.js"),
-        instructions = require("./instructions.js");
+var path = require('path'),
+    LOG = require("./udp-logger").log,
+    slimtcp = require("./tcp-server.js"),
+    instructions = require("./instructions.js");
 
-    var fixtureFolder = path.join(process.cwd(), process.argv[process.argv.length - 2]);
+var fixtureFolder = path.join(process.cwd(), process.argv[process.argv.length - 2]);
 
-    var Instructions = new instructions.Instructions(fixtureFolder);
+var Instructions = new instructions.Instructions(fixtureFolder);
 
-    var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length - 1],onReceivedInstructionSet);
-    tcpSlimServer.start();
+var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length - 1], onReceivedInstructionSet);
+tcpSlimServer.start();
 
-    function onReceivedInstructionSet(arr, cb) {
+function onReceivedInstructionSet(arr, cb) {
 
-        LOG(">> " + JSON.stringify(arr));
+    LOG(">> " + JSON.stringify(arr));
 
-        var ret = [];
+    var ret = [];
 
-        var currentInstructionIndex = 0;
+    var currentInstructionIndex = 0;
 
-        function onResult(result) {
-            ret.push(result);
+    function onResult(result) {
+        ret.push(result);
 
-            currentInstructionIndex++;
+        currentInstructionIndex++;
 
-            if (currentInstructionIndex < arr.length)
-                doInstruction(arr[currentInstructionIndex], onResult);
-            else
-                cb(ret);
-        }
-
-        doInstruction(arr[0], onResult);
+        if (currentInstructionIndex < arr.length)
+            doInstruction(arr[currentInstructionIndex], onResult);
+        else
+            cb(ret);
     }
 
-    function doInstruction(ins, cb) {
-        var cmd = ins[1];
+    doInstruction(arr[0], onResult);
+}
 
-        Instructions[cmd](ins,cb);
-    }
-}());
+function doInstruction(ins, cb) {
+    var cmd = ins[1];
+
+    Instructions[cmd](ins, cb);
+}
+
 

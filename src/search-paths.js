@@ -2,53 +2,53 @@
  * Created by noam on 1/3/16.
  */
 
+var vm = require('vm'),
+    fs = require('fs');
 
-(function (exports) {
-    var vm = require('vm');
-    var util = require('util');
-    var fs = require("fs");
+module.exports.make = function (name, args) {
+    return sandbox.make(name, args);
+}
 
-    var sandbox = { require:require, made:{}};
-    vm.createContext(sandbox);
+module.exports.loadFile = function (path, cb) {
+    fs.readFile(path, function (err, js) {
+        if (!err)
+            vm.runInContext(js.toString(), sandbox);
 
-    exports.make = function (name, args) {
-        return cons(name, args);
-    }
+        cb(err);
+    });
+}
 
-    var _script ="";
-    exports.load = function (js) {
-        _script += ";"+js;
-    }
-
-    exports.loadFile = function (path,cb) {
-        fs.readFile(path, function (err, jsfile) {
-            if(!err)
-                exports.load(jsfile.toString());
-            cb(err);
-        });
-    }
-
-    function cons(name, args) {
+var sandbox = {
+    require: require,
+    make: function (name, args) {
         if (!args)
             args = [];
 
+        var ns = name.split('.');
+
+        var theType =this[ns[0]];
+        for(var i=1;i<ns.length;i++)
+            theType = theType[ns[i]];
+
         try {
-
-            var ctor = JSON.stringify(args);
-            var js = _script + "; made=new " + name + "(" + ctor.substr(1, ctor.length - 2) + ");";
-
-            vm.runInContext(js,sandbox,{filename:'make.vm'});
-
-            if(!sandbox.made)
-                return "Could not make: " + name;
-
-            return sandbox.made;
-
+            return construct(theType, args);
         }
         catch (e) {
             return e.toString();
         }
-    }
 
-}(module.exports));
+        function construct(T) {
+            function F() {
+                return T.apply(this, args);
+            }
+
+            F.prototype = T.prototype;
+            return new F();
+        }
+    }
+};
+
+vm.createContext(sandbox);
+
+
 

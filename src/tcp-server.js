@@ -3,42 +3,39 @@
  */
 
 
-(function(exports){
-    var net = require('net'),
-        parser = require("./slim-parser").SlimParser,
-        SlimParser = new parser(),
-        LOG = require("./udp-logger").log;
+var net = require('net'),
+    parser = require("./slim-parser").SlimParser,
+    SlimParser = new parser()
 
-    exports.SlimTcpServer = function(port,doInstructionSet){
-        this.start = function(){
-            var server = net.createServer(function (socket) {
-                socket.write("Slim -- V" + "0.4" + "\n");
+module.exports.SlimTcpServer = function (port, doInstructionSet) {
+    this.start = function () {
+        var server = net.createServer(function (socket) {
+            socket.write("Slim -- V" + "0.4" + "\n");
 
-                var buf = "";
-                var lenHeader;
-                var instructionLength;
+            var buf = "";
+            var lenHeader;
+            var instructionLength;
 
-                socket.on('data', function (data) {
-                    buf += data.toString();
-                    if (!instructionLength && buf.indexOf(':') != -1) {
-                        lenHeader = buf.substr(0, buf.indexOf(':') + 1);
-                        instructionLength = parseInt(lenHeader);
-                    }
-                    if (buf.length - lenHeader.length == instructionLength) {
-                        var instructionArray = SlimParser.parse(buf.substr(lenHeader.length));
+            socket.on('data', function (data) {
+                buf += data.toString();
+                if (!instructionLength && buf.indexOf(':') != -1) {
+                    lenHeader = buf.substr(0, buf.indexOf(':') + 1);
+                    instructionLength = parseInt(lenHeader);
+                }
+                if (buf.length - lenHeader.length == instructionLength) {
+                    var instructionArray = SlimParser.parse(buf.substr(lenHeader.length));
 
-                        doInstructionSet(instructionArray, function (result) {
-                            var slim = SlimParser.stringify(result);
-                            socket.write(slim);
-                        });
+                    doInstructionSet(instructionArray, function (result) {
+                        var slim = SlimParser.stringify(result);
+                        socket.write(slim);
+                    });
 
-                        buf = "";
-                        lenHeader = null;
-                        instructionLength = null;
-                    }
-                });
+                    buf = "";
+                    lenHeader = null;
+                    instructionLength = null;
+                }
+            });
 
-            }).listen(port);
-        }
+        }).listen(port);
     }
-}(module.exports));
+}
