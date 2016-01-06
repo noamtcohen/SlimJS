@@ -37,7 +37,7 @@
             var ctor = JSON.stringify(args);
             var js = _script + "; made=new " + name + "(" + ctor.substr(1, ctor.length - 2) + ");";
 
-            vm.runInContext(js,sandbox);
+            vm.runInContext(js,sandbox,{filename:'make.vm'});
 
             if(!sandbox.made)
                 return "Could not make: " + name;

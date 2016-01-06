@@ -84,7 +84,7 @@
             if (!this.ObjectPool[instanceName])
                 cb([id, toException("?")]);
             else
-                cb([id, toException(e)]);
+                cb([id, toException("Is " + funName + " defined?")]);
         }
     }
 
@@ -104,7 +104,7 @@
     }
 
     function toException(e) {
-        return "__EXCEPTION__:message:<<" + e + ">> " + (e.stack || "");
+        return "__EXCEPTION__:message:<<" + e.toString() + ">>" + (e.stack? e.stack.toString() : "");
     }
 
     var VOID = "/__VOID__/";
