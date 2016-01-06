@@ -25,7 +25,7 @@ work in progress...
 use `cb(err,value)` to return values back to FitNesse
 
 ### Passing Fixtures
-#### Decision Table
+#### Decision Tables
 
 |eg.Division                  |||
 |---------|-----------|---------|
@@ -95,7 +95,7 @@ function ShouldIBuyMilk() {
 }
 ```
 --
-#### Script Table
+#### Script Tables
 
 
 |script|Greeter|ctorArg|100                |
