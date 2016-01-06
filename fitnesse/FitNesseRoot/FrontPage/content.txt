@@ -10,7 +10,7 @@
 |slim-fit-test    |
 |require-test|
 
-Decision Table
+
 |eg.Division                    |
 |numerator|denominator|quotient?|
 |10       |2          |5        |
@@ -28,7 +28,6 @@ Decision Table
 |0             |yes        |1                      |no          |
 |10            |yes        |1                      |no          |
 
-Script Table
 |script|Greeter|ctorArg                    |100                |
 |check |hello  |Hi                         |Hello Hi! (ctorArg)|
 |check |foo    |bar_100                                        |

@@ -1,3 +1,0 @@
-!define TEST_SYSTEM {slim}
-!define COMMAND_PATTERN {node ../src/slimfit.js %p}
-!path ../fixtures
