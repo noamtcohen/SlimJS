@@ -119,3 +119,19 @@ function Greeter(c,num){
     }
 }
 ```
+
+|script|child_process|               ||
+|------|-------------|--------|-------|
+|check |exec	        |node -v	| v5.1.0|
+
+```javascript
+var exec = require('child_process').exec;
+
+function child_process() {
+    this.exec = function (cmd, cb) {
+        exec(cmd, function (err, stdout, stderr) {
+            cb(err, stdout.trim());
+        });
+    }
+}
+```

@@ -34,7 +34,7 @@ var sandbox = {
             return construct(theType, args);
         }
         catch (e) {
-            return e.toString();
+            return "Seems like '" + name + "' doesn't exits."
         }
 
         function construct(T) {

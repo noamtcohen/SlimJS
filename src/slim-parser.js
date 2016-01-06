@@ -2,7 +2,8 @@
  * Created by noamc on 1/3/16.
  */
 
-var JSON5 = require('json5');
+var JSON5 = require('json5'),
+    LOG = require("./udp-logger").log;
 
 module.exports.SlimParser = SlimParser;
 

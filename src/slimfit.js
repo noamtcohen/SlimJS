@@ -11,9 +11,6 @@ var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length -
 tcpSlimServer.start();
 
 function onReceivedInstructionSet(arr, cb) {
-
-    LOG(">> " + JSON.stringify(arr));
-
     var ret = [];
 
     var currentInstructionIndex = 0;

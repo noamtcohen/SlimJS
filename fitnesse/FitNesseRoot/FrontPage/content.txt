@@ -2,9 +2,13 @@
 !define COMMAND_PATTERN {node ../src/slimfit.js %p}
 !path ../fixtures
 
-!1 SlimJS
-|import       |
-|slim-fit-test|
+!1 SlimJS  
+!4 sometimes red is green
+
+
+|import           |
+|slim-fit-test    |
+|require-test|
 
 Decision Table
 |eg.Division                    |
@@ -30,3 +34,5 @@ Script Table
 |check |foo    |bar_100                                        |
 |check |json   |{x:"a-string",y:true,z:123}|a-string(123)      |
 
+|script|child_process      |
+|check |exec|node -v|v5.1.0|

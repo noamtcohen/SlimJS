@@ -4,7 +4,8 @@
 
 var VOID = "/__VOID__/";
 var path = require('path'),
-    SearchPaths = require("./search-paths")
+    SearchPaths = require("./search-paths"),
+    LOG = require("./udp-logger").log
 
 module.exports.Instructions = Instructions;
 
@@ -81,8 +82,10 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
     catch (e) {
         if (!this.ObjectPool[instanceName])
             cb([id, toException("?")]);
+        else if(!this.ObjectPool[instanceName][funName])
+            cb([id, toException( funName + " is not defined")]);
         else
-            cb([id, toException("Is " + funName + " defined?")]);
+            cb([id, toException( e)]);
     }
 }
 
