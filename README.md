@@ -125,7 +125,6 @@ function Greeter(c,num){
 |check |exec	        |node -v	| v5.1.0|
 
 ```javascript
-// Thanks to [@mrt123](https://github.com/mrt123) for this example
 var exec = require('child_process').exec;
 
 function child_process() {
