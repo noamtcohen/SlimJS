@@ -24,8 +24,8 @@ work in progress...
 --
 use `cb(err,value)` to return values back to FitNesse
 
-### Passing tests
-#### Decision Table
+### Passing Fixtures
+#### Decision Tables
 
 |eg.Division                  |||
 |---------|-----------|---------|
@@ -95,7 +95,7 @@ function ShouldIBuyMilk() {
 }
 ```
 --
-#### Script Table
+#### Script Tables
 
 
 |script|Greeter|ctorArg|100                |
@@ -125,6 +125,7 @@ function Greeter(c,num){
 |check |exec	        |node -v	| v5.1.0|
 
 ```javascript
+// Thanks to Tomasz (@mrt123)
 var exec = require('child_process').exec;
 
 function child_process() {
