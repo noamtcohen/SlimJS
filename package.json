@@ -10,5 +10,8 @@
     "url": "https://github.com/noamtcohen/SlimJS"
   },
   "author": "Noam T.Cohen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "json5": "^0.4.0"
+  }
 }

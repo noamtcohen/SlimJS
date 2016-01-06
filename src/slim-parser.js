@@ -4,6 +4,8 @@
 
 (function (exports) {
 
+    var JSON5 = require('json5');
+
     exports.SlimParser = SlimParser;
 
     function SlimParser() {
@@ -78,6 +80,13 @@
         var num = parseFloat(val);
         if(!isNaN(num))
             return num;
+
+        if(val.trim().indexOf('{')===0){
+            try{
+                var o = JSON5.parse(val);
+                return JSON.stringify(o);
+            }catch(e){}
+        }
 
         return '"' + val.replace(/"/g, '\\"') + '"'
     }

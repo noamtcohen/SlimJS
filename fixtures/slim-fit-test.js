@@ -5,6 +5,10 @@ function Greeter(c,num){
     this.foo = function(cb){
         cb(null,"bar_" + num);
     }
+
+    this.json= function(obj,cb){
+        cb(null,obj.x + "(" +obj.z+ ")");
+    }
 }
 
 function ShouldIBuyMilk() {

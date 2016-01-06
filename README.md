@@ -6,6 +6,7 @@ An Async Node.js SliM server for FitNesse
 Visit [FitNesse](http://www.fitnesse.org/) and say hi to Uncle Bob!
 
 ```
+npm install
 cd fitnesse
 java -jar fitnesse-standalone.jar -p 8080
 ```
@@ -101,14 +102,20 @@ function ShouldIBuyMilk() {
 |------|-------|-------|-------------------|
 |check |hello  |Hi     |Hello Hi! (ctorArg)|
 |check |foo    |bar_100                   ||
+|check |json   |{x:"a-string",y:true,z:123}|a-string(123)|
 
 ```javascript
 function Greeter(c,num){
     this.hello = function(msg,cb){
         cb(null,"Hello " + msg + "! (" + c  +")");
     }
+    
     this.foo = function(cb){
         cb(null,"bar_" + num);
+    }
+
+    this.json= function(obj,cb){
+        cb(null,obj.x + "(" +obj.z+ ")");
     }
 }
 ```

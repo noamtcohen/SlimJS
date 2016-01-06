@@ -25,7 +25,8 @@ Decision Table
 |10            |yes        |1                      |no          |
 
 Script Table
-|script|Greeter|ctorArg|100                |
-|check |hello  |Hi     |Hello Hi! (ctorArg)|
-|check |foo    |bar_100                    |
+|script|Greeter|ctorArg                    |100                |
+|check |hello  |Hi                         |Hello Hi! (ctorArg)|
+|check |foo    |bar_100                                        |
+|check |json   |{x:"a-string",y:true,z:123}|a-string(123)      |
 
