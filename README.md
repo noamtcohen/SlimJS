@@ -24,7 +24,7 @@ work in progress...
 --
 use `cb(err,value)` to return values back to FitNesse
 
-### Passing tests
+### Passing Fixtures
 #### Decision Table
 
 |eg.Division                  |||
