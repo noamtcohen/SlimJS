@@ -36,5 +36,3 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 |check |foo    |bar_100                                        |
 |check |json   |{x:"a-string",y:true,z:123}|a-string(123)      |
 
-|script|child_process      |
-|check |exec|node -v|v5.1.0|
