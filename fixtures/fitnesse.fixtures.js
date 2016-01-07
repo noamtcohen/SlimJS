@@ -10,18 +10,24 @@ function PageDriver(){
 }
 
 function EchoFixture(){
+    var _name;
     var _s;
+
+    this.setName = function(name,cb){
+        _name = name;
+        cb(null,null);
+    }
+    this.nameContains = function(s,cb) {
+        cb(null,_name.indexOf(s)!==-1);
+    }
+
     this.echo = function(echo,cb){
         cb(null,echo);
     }
     this.echoBoolean = function(b,cb){
         cb(null,b);
     }
-    this.setString = function(s,cb){
-        _s=s;
-        cb(null,null);
-    }
-    this.getStringArg = function(cb){
-        cb(null,_s);
+    this.echoInt = function(i,cb) {
+        cb(null,i);
     }
 }

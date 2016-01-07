@@ -78,7 +78,7 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
         if (symbolNameToAssignTo)
         {
             LOG("Assign: " + symbolNameToAssignTo + "->"  +JSON.stringify(ret) + "->" + instanceName);
-            Symbols[symbolNameToAssignTo] = ObjectPool[instanceName];//ret || VOID;
+            Symbols[symbolNameToAssignTo] = ret;//ObjectPool[instanceName];//ret || VOID;
         }
 
         cb([id, ret ? ret.toString() : VOID]);
