@@ -11,10 +11,16 @@ module.exports.make = function (name, args) {
 
 module.exports.loadFile = function (path, cb) {
     fs.readFile(path, function (err, js) {
-        if (!err)
-            vm.runInContext(js.toString(), sandbox);
+        if (err)
+            return cb(err);
 
-        cb(err);
+        try{
+            vm.runInContext(js.toString(), sandbox,"sandbox.vm");
+            cb(null);
+        }
+        catch(e){
+            cb(new Error(e));
+        }
     });
 }
 
@@ -34,7 +40,7 @@ var sandbox = {
             return construct(theType, args);
         }
         catch (e) {
-            return "Seems like '" + name + "' doesn't exits."
+            return "Couldn't make '" + name + "'."
         }
 
         function construct(T) {

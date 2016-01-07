@@ -2,7 +2,7 @@
  * Created by noamc on 1/6/16.
  */
 
-var searchPaths = require('./search-paths');
+var searchPaths = require('./sandbox');
 
 searchPaths.loadFile("./fixtures/slim-fit-test.js",function(err){
     if(err)

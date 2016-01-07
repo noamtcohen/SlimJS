@@ -1,6 +1,9 @@
 !define TEST_SYSTEM {slim}
-!define COMMAND_PATTERN {node ../src/slimfit.js %p}
+!define COMMAND_PATTERN {node ../src/slimjs.js %p}
 !path ../fixtures
+
+FitNesse.SuiteAcceptanceTests.SuiteSlimTests
+
 
 !1 SlimJS  
 !4 sometimes red is green

@@ -4,16 +4,18 @@
 
 var VOID = "/__VOID__/";
 var path = require('path'),
-    SearchPaths = require("./search-paths"),
+    SearchPaths = require("./sandbox"),
     LOG = require("./udp-logger").log
 
 module.exports.Instructions = Instructions;
 
-function Instructions(fixtureFolder) {
-    this.ObjectPool = {};
-    this.Library = {};
-    this.Symbols = {};
-    this.fixtureFolder = fixtureFolder;
+var ObjectPool = {};
+var Library = [];
+var Symbols = {};
+var fixtureFolder;
+
+function Instructions(fixFolder) {
+    fixtureFolder = fixFolder;
 }
 
 var proto = Instructions.prototype;
@@ -21,7 +23,7 @@ var proto = Instructions.prototype;
 proto.import = function (ins, cb) {
     var id = ins[0];
 
-    var jsPath = path.join(this.fixtureFolder, ins[2] + ".js");
+    var jsPath = path.join(fixtureFolder, ins[2] + ".js");
 
     SearchPaths.loadFile(jsPath, function (err) {
         if (err)
@@ -34,22 +36,29 @@ proto.import = function (ins, cb) {
 proto.make = function (ins, cb) {
     var id = ins[0];
 
-    var instanceName = ins[2];
-    var instanceType = ins[3];
+    var instance = ins[2];
+    var clazz = ins[3];
+
+    if(clazz.indexOf('$')===0 && (typeof Symbols[clazz] !== 'string'))
+    {
+        LOG("Copy Symbol: " + instance + " "  + clazz);
+        ObjectPool[instance] = Symbols[clazz.substr(1)];
+        return cb([id,'OK'])
+    }
 
     var args = ins.slice(4);
 
-    var obj = SearchPaths.make(instanceType, args);
+    var obj = SearchPaths.make(clazz, args);
 
     if (typeof obj === 'string')
         return cb([id, toException(obj)]);
 
 
-    var isLibraryObject = instanceName.indexOf('library') === 0;
+    var isLibraryObject = instance.indexOf('library') === 0;
     if (isLibraryObject)
-        this.Library[instanceName] = obj;
+        Library.push({name:instance,value:obj});
     else
-        this.ObjectPool[instanceName] = obj;
+        ObjectPool[instance] = obj;
 
     cb([id, 'OK']);
 }
@@ -67,22 +76,25 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
             return cb([id, toException(err)]);
 
         if (symbolNameToAssignTo)
-            this.Symbols[symbolNameToAssignTo] = ret || VOID;
+        {
+            LOG("Assign: " + symbolNameToAssignTo + "->"  +JSON.stringify(ret) + "->" + instanceName);
+            Symbols[symbolNameToAssignTo] = ObjectPool[instanceName];//ret || VOID;
+        }
 
         cb([id, ret ? ret.toString() : VOID]);
     });
 
     try {
-        var theFunc = this.ObjectPool[instanceName][funName];
+        var theFunc = ObjectPool[instanceName][funName];
         if (!theFunc && (funName == 'beginTable' || funName == 'endTable' || funName == 'reset' || funName == 'execute' || funName == 'table'))
             return cb([id, VOID]);
 
         theFunc.apply(null, args);
     }
     catch (e) {
-        if (!this.ObjectPool[instanceName])
+        if (!ObjectPool[instanceName])
             cb([id, toException("?")]);
-        else if(!this.ObjectPool[instanceName][funName])
+        else if(!ObjectPool[instanceName][funName])
             cb([id, toException( funName + " is not defined")]);
         else
             cb([id, toException( e)]);
@@ -99,13 +111,16 @@ proto.assign = function (ins, cb) {
     var id = ins[0];
     var symbol = ins[2];
     var val = ins[3];
-    this.Symbols[symbol] = val;
+    Symbols[symbol] = val;
 
     cb([id, "OK"]);
 }
 
 function toException(e) {
-    return "__EXCEPTION__:message:<<" + e.toString() + ">>" + (e.stack ? e.stack.toString() : "");
+    if(e.stack)
+        return "__EXCEPTION__:"+e.stack.toString();
+
+    return "__EXCEPTION__:message:<<" + e.toString() + ">>";
 }
 
 

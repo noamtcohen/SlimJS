@@ -12,6 +12,7 @@ function SlimParser() {};
 SlimParser.prototype.parse = function (instruction) {
     var json = slimToArray(instruction);
 
+    LOG(">> " +json);
     return JSON.parse(json);
 }
 
