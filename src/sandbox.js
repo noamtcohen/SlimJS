@@ -14,11 +14,11 @@ module.exports.loadFile = function (path, cb) {
         if (err)
             return cb(err);
 
-        try{
-            vm.runInContext(js.toString(), sandbox,"sandbox.vm");
+        try {
+            vm.runInContext(js.toString(), sandbox, "sandbox.vm");
             cb(null);
         }
-        catch(e){
+        catch (e) {
             cb(new Error(e));
         }
     });
@@ -30,17 +30,17 @@ var sandbox = {
         if (!args)
             args = [];
 
-        var ns = name.split('.');
-
-        var theType =this[ns[0]];
-        for(var i=1;i<ns.length;i++)
-            theType = theType[ns[i]];
-
         try {
+            var ns = name.split('.');
+
+            var theType = this[ns[0]];
+            for (var i = 1; i < ns.length; i++)
+                theType = theType[ns[i]];
+
             return construct(theType, args);
         }
         catch (e) {
-            return "Couldn't make '" + name + "'."
+            return "Couldn't make '" + name + "'. (" + e + ")";
         }
 
         function construct(T) {
