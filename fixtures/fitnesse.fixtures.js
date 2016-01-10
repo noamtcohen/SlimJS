@@ -24,10 +24,21 @@ function EchoFixture(){
     this.echo = function(echo,cb){
         cb(null,echo);
     }
+
+    this.echoInt = function(i,cb) {
+        cb(null,i);
+    }
+}
+
+function TestSlim() {
     this.echoBoolean = function(b,cb){
         cb(null,b);
     }
-    this.echoInt = function(i,cb) {
-        cb(null,i);
+    this.setString = function(s, cb){
+        this._s = s;
+        cb(null,null);
+    }
+    this.getStringArg = function (cb) {
+        cb(null,this._s);
     }
 }
