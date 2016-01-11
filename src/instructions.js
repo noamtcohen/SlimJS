@@ -70,6 +70,7 @@ proto.make = function (ins, cb) {
 }
 
 proto.call = function (ins, cb, symbolNameToAssignTo) {
+    LOG(JSON.stringify(ins));
     var id = ins[0];
 
     var instanceName = ins[2];
@@ -90,10 +91,13 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
         cb([id, ret ? ret.toString() : VOID]);
     });
 
+
     try {
         var theFunc = ObjectPool[instanceName][funName];
         if (!theFunc && (funName == 'beginTable' || funName == 'endTable' || funName == 'reset' || funName == 'execute' || funName == 'table'))
             return cb([id, VOID]);
+
+        loadSybolValuesToArguments();
 
         theFunc.apply(null, args);
     }
@@ -105,6 +109,13 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
         else
             cb([id, toException( e)]);
     }
+
+    function loadSybolValuesToArguments() {
+        for (var i = 0; i < args.length; i++)
+            if (args[i].toString().indexOf('$') === 0)
+                args[i] = Symbols[args[i].substr(1)];
+    }
+
 }
 
 proto.callAndAssign = function (ins, cb) {

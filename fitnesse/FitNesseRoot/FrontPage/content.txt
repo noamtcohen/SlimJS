@@ -6,7 +6,7 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 
 
 !1 SlimJS  
-!4 sometimes red is green
+!4 sometimes when test a test, red is green.
 
 
 |import             |
@@ -16,7 +16,8 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 
 |eg.Division                    |
 |numerator|denominator|quotient?|
-|10       |2          |5        |
+|10       |2          |$result= |
+|$result  |10         |0.5      |
 |12.6     |3          |4.2      |
 |100      |4          |25       |
 
