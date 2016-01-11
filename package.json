@@ -1,6 +1,6 @@
 {
   "name": "slimjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An Async Node.js SliM server for FitNesse",
   "bin": {
     "slimfit": "./src/slimjs.js"
