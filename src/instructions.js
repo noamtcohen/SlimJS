@@ -39,11 +39,17 @@ proto.make = function (ins, cb) {
     var instance = ins[2];
     var clazz = ins[3];
 
-    if(clazz.indexOf('$')===0 && (typeof Symbols[clazz] !== 'string'))
-    {
-        LOG("Copy Symbol: " + instance + " "  + clazz);
-        ObjectPool[instance] = Symbols[clazz.substr(1)];
-        return cb([id,'OK'])
+    if (clazz.indexOf('$')===0) {
+        var symbol = Symbols[clazz.substr(1)];
+        if (typeof symbol === 'string')
+        {
+            LOG("Use Symbol as class name: " + " "  + clazz);
+            clazz = symbol;
+        } else {
+            LOG("Copy Symbol: " + instance + " "  + clazz);
+            ObjectPool[instance] = symbol;
+            return cb([id,'OK'])
+        }
     }
 
     var args = ins.slice(4);
