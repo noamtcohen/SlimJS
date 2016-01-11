@@ -12,7 +12,6 @@ function SlimParser() {};
 SlimParser.prototype.parse = function (instruction) {
     var json = slimToArray(instruction);
 
-    LOG(">> " +json);
     return JSON.parse(json);
 }
 
@@ -20,6 +19,7 @@ SlimParser.prototype.stringify = function (arr) {
     var arr = arrayToSlim(arr);
 
     var result = pad(arr.length + 2) + ":[" + arr + "]";
+
     return result;
 }
 
@@ -33,6 +33,10 @@ function arrayToSlim(arr) {
             result += pad(a.length + 2) + ":[" + a + "]:";
         }
         else {
+            if(typeof elm === 'object')
+                elm = JSON.stringify(elm);
+            else
+                elm = elm.toString();
             result += pad(elm.length) + ":" + elm + ":";
         }
     }

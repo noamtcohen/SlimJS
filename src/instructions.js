@@ -51,6 +51,16 @@ proto.make = function (ins, cb) {
             return cb([id,'OK'])
         }
     }
+    else if(clazz.indexOf('$')!==-1){
+        var symbolKeys = Object.keys(Symbols);
+        for(var i=0;i<symbolKeys.length;i++)
+        {
+            var key = symbolKeys[i];
+            if (typeof Symbols[key] === 'string'){
+                clazz = clazz.replace("$" + key,Symbols[key]);
+            }
+        }
+    }
 
     var args = ins.slice(4);
 
@@ -83,12 +93,10 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
             return cb([id, toException(err)]);
 
         if (symbolNameToAssignTo)
-        {
-            LOG("Assign: " + symbolNameToAssignTo + "->"  +JSON.stringify(ret) + "->" + instanceName);
-            Symbols[symbolNameToAssignTo] = ret;//ObjectPool[instanceName];//ret || VOID;
-        }
+            Symbols[symbolNameToAssignTo] = ret;
 
-        cb([id, ret ? ret.toString() : VOID]);
+
+        cb([id, (ret==null || ret==undefined)?VOID:ret]);
     });
 
 
@@ -99,7 +107,7 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
 
         loadSybolValuesToArguments();
 
-        theFunc.apply(null, args);
+        theFunc.apply(ObjectPool[instanceName], args);
     }
     catch (e) {
         if (!ObjectPool[instanceName])

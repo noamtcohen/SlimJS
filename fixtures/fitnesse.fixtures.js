@@ -29,16 +29,3 @@ function EchoFixture(){
         cb(null,i);
     }
 }
-
-function TestSlim() {
-    this.echoBoolean = function(b,cb){
-        cb(null,b);
-    }
-    this.setString = function(s, cb){
-        this._s = s;
-        cb(null,null);
-    }
-    this.getStringArg = function (cb) {
-        cb(null,this._s);
-    }
-}
