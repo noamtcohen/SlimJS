@@ -28,7 +28,8 @@ use `cb(err,value)` to return values back to FitNesse
 ```
 |eg.Division                    |
 |numerator|denominator|quotient?|
-|10       |2          |5        |
+|10       |2          |$result= |
+|$result  |10         |0.5      |
 |12.6     |3          |4.2      |
 |100      |4          |25       |
 ```
