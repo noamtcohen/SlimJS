@@ -3,6 +3,21 @@ An Async Node.js SliM server for FitNesse
 
 Visit [FitNesse](http://www.fitnesse.org/) and say hi to [Uncle Bob!](https://cleancoders.com)
 
+If you want to use slimjs on an existing FitNesse server then:
+
+```
+npm install -g slimjs
+```
+Create a test page in FitNesse and add this to the top of the page:
+
+```
+!define TEST_SYSTEM {slim}
+!define COMMAND_PATTERN {slimjs %p}
+!path /Path/To/Fixtures
+```
+
+--
+
 Some examples of passing fixtures are below. I'm working to pass the [FitNesse test suite for slim](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests). 
 
 - [ChainTest](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainTest) - pass

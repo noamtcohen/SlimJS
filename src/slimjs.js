@@ -1,9 +1,18 @@
+#! /usr/bin/env node
+
 var path = require('path'),
     LOG = require("./udp-logger").log,
     slimtcp = require("./tcp-server.js"),
-    instructions = require("./instructions.js");
+    instructions = require("./instructions.js"),
+    classpath =  process.argv[process.argv.length - 2];
 
-var fixtureFolder = path.join(process.cwd(), process.argv[process.argv.length - 2]);
+
+var fixtureFolder;
+
+if(path.isAbsolute(classpath))
+    fixtureFolder = classpath;
+else
+    fixtureFolder= path.join(process.cwd(), classpath);
 
 var Instructions = new instructions.Instructions(fixtureFolder);
 
