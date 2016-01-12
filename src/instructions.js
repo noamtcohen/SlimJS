@@ -39,7 +39,7 @@ proto.make = function (ins, cb) {
     var instance = ins[2];
     var clazz = ins[3];
 
-    if (clazz.indexOf('$')===0) {
+    if (classIsSingleSymbol(clazz)) {
         var symbol = Symbols[clazz.substr(1)];
         if (typeof symbol === 'string')
         {
@@ -51,16 +51,10 @@ proto.make = function (ins, cb) {
             return cb([id,'OK'])
         }
     }
-    else if(clazz.indexOf('$')!==-1){
-        var symbolKeys = Object.keys(Symbols);
-        for(var i=0;i<symbolKeys.length;i++)
-        {
-            var key = symbolKeys[i];
-            if (typeof Symbols[key] === 'string'){
-                clazz = clazz.replace("$" + key,Symbols[key]);
-            }
-        }
-    }
+
+
+    clazz= replaceAllSymbols(clazz);
+
 
     var args = ins.slice(4);
 
@@ -94,7 +88,6 @@ proto.call = function (ins, cb, symbolNameToAssignTo) {
 
         if (symbolNameToAssignTo)
             Symbols[symbolNameToAssignTo] = ret;
-
 
         cb([id, (ret==null || ret==undefined)?VOID:ret]);
     });
@@ -139,6 +132,31 @@ proto.assign = function (ins, cb) {
     Symbols[symbol] = val;
 
     cb([id, "OK"]);
+}
+
+function classIsSingleSymbol(clazz){
+    return clazz.indexOf('$')===0 && clazz.match(/$/g).length==1;
+}
+
+function needToReplaceSymbols(clazz){
+    return clazz.indexOf('$')!==-1;
+}
+
+function replaceAllSymbols(clazz){
+    if(!needToReplaceSymbols(clazz))
+        return clazz;
+
+    var symbolKeys = Object.keys(Symbols);
+    for(var i=0;i<symbolKeys.length;i++)
+    {
+        var key = symbolKeys[i];
+        if (typeof Symbols[key] === 'string'){
+            var regx = new RegExp("\\$" + key,'g');
+            clazz = clazz.replace(regx,Symbols[key]);
+        }
+    }
+
+    return clazz;
 }
 
 function toException(e) {

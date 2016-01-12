@@ -25,14 +25,15 @@ use `cb(err,value)` to return values back to FitNesse
 ### Passing Fixtures
 #### Decision Tables
 
-```
-|eg.Division                    |
-|numerator|denominator|quotient?|
-|10       |2          |$result= |
-|$result  |10         |0.5      |
-|12.6     |3          |4.2      |
-|100      |4          |25       |
-```
+
+|  eg.Division                    ||| 
+|-------------|-----------|---------|
+|numerator    |denominator|quotient?|
+|10           |2          |$result= |
+|$result      |10         |0.5      |
+|12.6         |3          |4.2      |
+|100          |4          |25       |
+
 
 ```javascript
 var eg={
@@ -56,9 +57,8 @@ var eg={
 ```
 
 
-
-```
-|should I buy milk                                              |
+|should I buy milk                                           ||||
+|--------------|-----------|-----------------------|------------|
 |cash in wallet|credit card|pints of milk remaining|go to store?|
 |0             |no         |0                      |no          |
 |10            |no         |0                      |yes         |
@@ -68,7 +68,7 @@ var eg={
 |10            |no         |1                      |no          |
 |0             |yes        |1                      |no          |
 |10            |yes        |1                      |no          |
-```
+
 
 ```javascript
 function ShouldIBuyMilk() {
@@ -101,12 +101,13 @@ function ShouldIBuyMilk() {
 #### Script Tables
 
 
-```
+
 |script|Greeter|ctorArg                    |100                |
+|------|-------|---------------------------|-------------------|
 |check |hello  |Hi                         |Hello Hi! (ctorArg)|
-|check |foo    |bar_100                                        |
+|check |foo    |bar_100                                       ||
 |check |json   |{x:"a-string",y:true,z:123}|a-string(123)      |
-```
+
 
 ```javascript
 function Greeter(c,num){
@@ -125,11 +126,9 @@ function Greeter(c,num){
 ```
 
 
-
-```
-|script|child_process      |
+|script|child_process    |||
+|------|----|-------|------|
 |check |exec|node -v|v5.4.0|
-```
 
 ```javascript
 // Thanks to Tomasz (@mrt123)
