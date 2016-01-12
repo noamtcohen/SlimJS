@@ -13,9 +13,30 @@ Create a test page in FitNesse and add this to the top of the page:
 ```
 !define TEST_SYSTEM {slim}
 !define COMMAND_PATTERN {slimjs %p}
-!path /Path/To/Fixtures
+!path /Path/To/My/Fixtures
+
+|import      |
+|my-test-file|
+
+|Hi          |
+|echo|sayHi? |
+|Bob |Hi! Bob|
+
 ```
 
+```javascript
+//my-test-file.js
+function Hi(){
+    this.setEcho = function(str,cb){
+        this.echo = str;
+        cb(null,null);
+    }
+
+    this.sayHi = function(cb){
+        cb(null,"Hi! " + this.echo);
+    }
+}
+```
 --
 
 Some examples of passing fixtures are below. I'm working to pass the [FitNesse test suite for slim](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests). 
