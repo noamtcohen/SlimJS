@@ -34,7 +34,7 @@ function arrayToSlim(arr) {
         }
         else {
             if(typeof elm === 'object')
-                elm = JSON.stringify(elm);
+                elm = JSON5.stringify(elm);
             else
                 elm = elm.toString();
             result += pad(elm.length) + ":" + elm + ":";
