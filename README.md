@@ -1,7 +1,18 @@
 ## SlimJS
 An Async Node.js SliM server for FitNesse
 
-Visit [FitNesse](http://www.fitnesse.org/) and say hi to Uncle Bob!
+Visit [FitNesse](http://www.fitnesse.org/) and say hi to [Uncle Bob!](https://cleancoders.com)
+
+Some examples of passing fixtures are below. I'm working to pass the [FitNesse test suite for slim](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests). 
+
+- [ChainTest](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainTest) - pass
+- [ChainWithInstanceTest](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainWithInstanceTest) - partial
+
+You can run these test locally here (after you startup):
+[http://localhost:8080/FitNesse.SuiteAcceptanceTests.SuiteSlimTests](http://localhost:8080/FitNesse.SuiteAcceptanceTests.SuiteSlimTests)
+
+
+To start the environment:
 
 ```
 npm install
