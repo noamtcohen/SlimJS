@@ -1,4 +1,5 @@
-## SlimJS
+## [SlimJS](https://github.com/noamtcohen/SlimJS/)
+
 An Async Node.js SliM server for FitNesse
 
 Visit [FitNesse](http://www.fitnesse.org/) and say hi to [Uncle Bob!](https://cleancoders.com)
@@ -25,7 +26,9 @@ Create a test page in FitNesse and add this to the top of the page:
 ```
 
 ```javascript
-//my-test-file.js
+/*
+Place this file in: /Path/To/My/Fixtures/my-test-file.js
+*/
 function Hi(){
     this.setEcho = function(str,cb){
         this.echo = str;
@@ -38,6 +41,7 @@ function Hi(){
 }
 ```
 --
+#### For contributors
 
 Some examples of passing fixtures are below. I'm working to pass the [FitNesse test suite for slim](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests). 
 
