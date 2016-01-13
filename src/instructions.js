@@ -4,7 +4,7 @@
 
 var VOID = "/__VOID__/";
 var path = require('path'),
-    SearchPaths = require("./sandbox"),
+    sandbox = require("./sandbox"),
     LOG = require("./udp-logger").log
 
 module.exports.Instructions = Instructions;
@@ -16,6 +16,7 @@ var fixtureFolder;
 
 function Instructions(fixFolder) {
     fixtureFolder = fixFolder;
+    sandbox.addWorkingDirectory(fixFolder);
 }
 
 var proto = Instructions.prototype;
@@ -25,7 +26,7 @@ proto.import = function (ins, cb) {
 
     var jsPath = path.join(fixtureFolder, ins[2] + ".js");
 
-    SearchPaths.loadFile(jsPath, function (err) {
+    sandbox.loadFile(jsPath, function (err) {
         if (err)
             return cb([id, toException(err)]);
 
@@ -58,7 +59,7 @@ proto.make = function (ins, cb) {
 
     var args = ins.slice(4);
 
-    var obj = SearchPaths.make(clazz, args);
+    var obj = sandbox.make(clazz, args);
 
     if (typeof obj === 'string')
         return cb([id, toException(obj)]);
@@ -74,7 +75,7 @@ proto.make = function (ins, cb) {
 }
 
 proto.call = function (ins, cb, symbolNameToAssignTo) {
-    LOG(JSON.stringify(ins));
+    //LOG(JSON.stringify(ins));
     var id = ins[0];
 
     var instanceName = ins[2];

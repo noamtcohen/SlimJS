@@ -12,6 +12,7 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 |import             |
 |slim-fit-test      |
 |nested/require-test|
+|my-test-file       |
 
 
 |eg.Division                    |

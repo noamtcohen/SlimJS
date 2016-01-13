@@ -3,19 +3,24 @@
  */
 
 var vm = require('vm'),
-    fs = require('fs');
+    fs = require('fs'),
+    LOG = require("./udp-logger").log;
+
+module.exports.addWorkingDirectory = function(workingDirectory){
+    module.paths.push(workingDirectory);
+}
+
 
 module.exports.make = function (name, args) {
     return sandbox.make(name, args);
 }
 
 module.exports.loadFile = function (path, cb) {
-    fs.readFile(path, function (err, js) {
+    fs.readFile(path,'utf8', function (err, js) {
         if (err)
             return cb(err);
-
         try {
-            vm.runInContext(js.toString(), sandbox, "sandbox.vm");
+            vm.runInContext(js, sandbox, path + ".vm");
             cb(null);
         }
         catch (e) {
@@ -26,6 +31,8 @@ module.exports.loadFile = function (path, cb) {
 
 var sandbox = {
     require: require,
+    process:process,
+
     make: function (name, args) {
         if (!args)
             args = [];
