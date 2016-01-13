@@ -3,7 +3,7 @@
 var path = require('path'),
     LOG = require("./udp-logger").log,
     slimtcp = require("./tcp-server.js"),
-    instructions = require("./instructions.js"),
+    instructions = require("./StatementExecutor.js"),
     classpath =  process.argv[process.argv.length - 2];
 
 
@@ -14,7 +14,7 @@ if(path.isAbsolute(classpath))
 else
     fixtureFolder= path.join(process.cwd(), classpath);
 
-var Instructions = new instructions.Instructions(fixtureFolder);
+var statementExecutor = new instructions.StatementExecutor(fixtureFolder);
 
 var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length - 1], onReceivedInstructionSet);
 tcpSlimServer.start();
@@ -41,7 +41,7 @@ function onReceivedInstructionSet(arr, cb) {
 function doInstruction(ins, cb) {
     var cmd = ins[1];
 
-    Instructions[cmd](ins, cb);
+    statementExecutor[cmd](ins, cb);
 }
 
 
