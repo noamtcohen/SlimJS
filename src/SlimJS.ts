@@ -2,8 +2,7 @@
  * Created by noamc on 1/14/16.
  */
 
-
-import {Aoo,Boo} from './Somthing';
+import {Aoo,Boo} from './Sandbox';
 
 var a = new Aoo();
 var b = new Boo();
