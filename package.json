@@ -3,7 +3,7 @@
   "version": "1.0.13",
   "description": "An Async Node.js SliM server for FitNesse",
   "bin": {
-    "slimjs": "./src/slimjs.js"
+    "slimjs": "./lib/slimjs.js"
   },
   "repository": {
     "type": "git",
