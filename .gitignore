@@ -4,5 +4,3 @@ fitnesse/FitNesseRoot/files
 fitnesse/FitNesseRoot/RecentChanges
 *.zip
 node_modules
-npm-debug.log
-typings
