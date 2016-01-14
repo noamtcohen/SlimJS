@@ -3,7 +3,7 @@
  */
 
 
-function TestSlim() {
+function TestSlim(constructorArg) {
     this.echoBoolean = function(b,cb){
         cb(null,b);
     }
@@ -18,6 +18,9 @@ function TestSlim() {
         var ret = new TestSlim();
         ret.setString(s,function(){});
         cb(null,ret);
+    }
+    this.toString = function(){
+        return "TestSlim: " + (constructorArg||'0') + ', ' + (this._s||'');
     }
 }
 
