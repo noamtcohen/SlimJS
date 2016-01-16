@@ -6,6 +6,7 @@ function SlimHelperLibrary()
     this.ACTOR_INSTANCE_NAME = 'scriptTableActor';
     var  statementExecutor;
     var  fixtureStack = [];
+
     this.setStatementExecutor = function(_statementExecutor)
     {
         statementExecutor = _statementExecutor;
@@ -16,25 +17,20 @@ function SlimHelperLibrary()
         return statementExecutor;
     }
 
-    this.pushFixture = function(cb)
+    this.pushFixture = function()
     {
-        this.getFixture(function(err,fixture){
-            fixtureStack.push(fixture);
-            cb(null,null);
-        })
-
+        fixtureStack.push(this.getFixture());
     }
 
-    this.popFixture = function(cb)
+    this.popFixture = function()
     {
-        var $fixture = fixtureStack.pop();
-        statementExecutor.setInstance(this.ACTOR_INSTANCE_NAME,$fixture);
-        cb(null,null);
+        var fixture = fixtureStack.pop();
+        statementExecutor.setInstance(this.ACTOR_INSTANCE_NAME,fixture);
     }
 
-    this.getFixture = function(cb)
+    this.getFixture = function()
     {
-        cb(null,statementExecutor.instance(this.ACTOR_INSTANCE_NAME));
+        return statementExecutor.instance(this.ACTOR_INSTANCE_NAME);
     }
 }
 

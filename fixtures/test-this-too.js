@@ -1,7 +1,7 @@
 
 
 function thisToo(){
-    this.goo = function(cb){
-        cb(null,"fee");
+    this.goo = function(){
+        return 'fee';
     }
 }

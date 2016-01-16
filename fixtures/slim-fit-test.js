@@ -1,14 +1,14 @@
 
 function Greeter(c,num){
-    this.hello = function(msg,cb){
-        cb(null,"Hello " + msg + "! (" + c  +")");
+    this.hello = function(msg){
+        return "Hello " + msg + "! (" + c  +")";
     }
-    this.foo = function(cb){
-        cb(null,"bar_" + num);
+    this.foo = function(){
+        return "bar_" + num;
     }
 
-    this.json= function(obj,cb){
-        cb(null,obj.x + "(" +obj.z+ ")");
+    this.json= function(obj){
+        return obj.x + "(" +obj.z+ ")";
     }
 }
 
@@ -17,24 +17,21 @@ function ShouldIBuyMilk() {
     var _pints;
     var _creditCard;
 
-    this.setCashInWallet = function(dollars,cb) {
+    this.setCashInWallet = function(dollars) {
         _dollars = dollars;
-        cb(null,null);
     }
 
-    this.setPintsOfMilkRemaining=function(pints,cb) {
+    this.setPintsOfMilkRemaining=function(pints) {
         _pints = pints;
-        cb(null,null);
     }
 
-    this.setCreditCard = function(valid,cb) {
+    this.setCreditCard = function(valid) {
         _creditCard = "yes"===valid;
-        cb(null,null);
     }
 
-    this.goToStore = function(cb) {
+    this.goToStore = function() {
         var ret=(_pints == 0 && (_dollars > 2 || _creditCard)) ? "yes" : "no";
-        cb(null,ret);
+        return ret;
     }
 }
 
@@ -44,16 +41,14 @@ var eg={
         var num;
         var denom;
 
-        this.setNumerator = function(n,cb){
+        this.setNumerator = function(n){
             num = n;
-            cb(null,null);
         }
-        this.setDenominator = function(n,cb){
+        this.setDenominator = function(n){
             denom=n;
-            cb(null,null);
         }
-        this.quotient = function(cb){
-            cb(null,num/denom);
+        this.quotient = function(){
+            return num/denom;
         }
     }
 };

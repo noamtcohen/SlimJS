@@ -13,19 +13,18 @@ function EchoFixture(){
     var _name;
     var _s;
 
-    this.setName = function(name,cb){
+    this.setName = function(name){
         _name = name;
-        cb(null,null);
     }
-    this.nameContains = function(s,cb) {
-        cb(null,_name.indexOf(s)!==-1);
-    }
-
-    this.echo = function(echo,cb){
-        cb(null,echo);
+    this.nameContains = function(s) {
+        return _name.indexOf(s)!==-1;
     }
 
-    this.echoInt = function(i,cb) {
-        cb(null,i);
+    this.echo = function(echo){
+        return echo;
+    }
+
+    this.echoInt = function(i) {
+        return i;
     }
 }

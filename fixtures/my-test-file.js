@@ -5,12 +5,11 @@
 require("test-this-too.js");
 
 function Hi(){
-    this.setEcho = function(str,cb){
+    this.setEcho = function(str){
         this.echo = str;
-        cb(null,null);
     }
 
-    this.sayHi = function(cb){
-        cb(null,"Hi! " + this.echo);
+    this.sayHi = function(){
+        return "Hi! " + this.echo;
     }
 }

@@ -32,6 +32,7 @@ module.exports.loadFile = function (path, cb) {
 var sandbox = {
     require: require,
     process:process,
+    LOG:LOG,
 
     make: function (name, args) {
         if (!args)

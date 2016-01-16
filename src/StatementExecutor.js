@@ -65,24 +65,12 @@ function StatementExecutor(fixFolder) {
     }
 
     this.call = function (ins, cb, symbolNameToAssignTo) {
-        //LOG(JSON.stringify(ins));
         var id = ins[0];
 
         var instanceName = ins[2];
         var funName = ins[3];
 
         var args = ins.slice(4) || [];
-
-        args.push(function (err, ret) {
-            if (err)
-                return cb([id, toException(err)]);
-
-            if (symbolNameToAssignTo)
-                symbolRepository[symbolNameToAssignTo] = ret;
-
-            cb([id, (ret==null || ret==undefined)?VOID:ret]);
-        });
-
 
         try {
             var theFunc = instances[instanceName][funName];
@@ -115,23 +103,37 @@ function StatementExecutor(fixFolder) {
             if(!theFunc)
                 throw "call: " +  funName + " was not found on instances, sut or library";
 
-            theFunc.apply(applyOnObject, args);
+            var funReturn = theFunc.apply(applyOnObject, args);
+
+            if(funReturn==null || typeof funReturn === 'undefined')
+                return cb([id,VOID]);
+
+            if(funReturn.then && typeof funReturn.then === 'function')
+            {
+                funReturn.then(function(val){
+
+                    if (symbolNameToAssignTo)
+                        symbolRepository[symbolNameToAssignTo] = val;
+
+                    cb([id,val]);
+
+                },function(err){
+                    cb([id, toException(err)]);
+                })
+
+                return;
+            }
+
+            if (symbolNameToAssignTo)
+                symbolRepository[symbolNameToAssignTo] = funReturn;
+
+            cb([id, funReturn]);
         }
         catch (e) {
             if (!applyOnObject)
                 cb([id, toException("?")]);
             else
                 cb([id, toException( e)]);
-        }
-
-        function loadSybolValuesToArguments(args) {
-            for (var i = 0; i < args.length; i++)
-                if (args[i].toString().indexOf('$') === 0)
-                    args[i] = symbolRepository[args[i].substr(1)];
-        }
-
-        function isOptionalFunction(funName){
-            return (funName == 'beginTable' || funName == 'endTable' || funName == 'reset' || funName == 'execute' || funName == 'table');
         }
     }
 
@@ -156,6 +158,16 @@ function StatementExecutor(fixFolder) {
 
     this.instance =function(name){
         return instances[name]||null;
+    }
+
+    function loadSybolValuesToArguments(args) {
+        for (var i = 0; i < args.length; i++)
+            if (args[i].toString().indexOf('$') === 0)
+                args[i] = symbolRepository[args[i].substr(1)];
+    }
+
+    function isOptionalFunction(funName){
+        return (funName == 'beginTable' || funName == 'endTable' || funName == 'reset' || funName == 'execute' || funName == 'table');
     }
 
     function addSlimHelperLibrary(executer)

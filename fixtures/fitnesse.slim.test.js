@@ -4,20 +4,19 @@
 
 
 function TestSlim(constructorArg) {
-    this.echoBoolean = function(b,cb){
-        cb(null,b);
+    this.echoBoolean = function(b){
+       return b;
     }
-    this.setString = function(s, cb){
+    this.setString = function(s){
         this._s = s;
-        cb(null,null);
     }
-    this.getStringArg = function (cb) {
-        cb(null,this._s);
+    this.getStringArg = function () {
+        return this._s;
     }
-    this.createTestSlimWithString = function(s,cb){
+    this.createTestSlimWithString = function(s){
         var ret = new TestSlim();
         ret.setString(s,function(){});
-        cb(null,ret);
+        return ret;
     }
     this.toString = function(){
         return "TestSlim: " + (constructorArg||'0') + ', ' + (this._s||'');
@@ -26,11 +25,11 @@ function TestSlim(constructorArg) {
 
 
 function TestQuery(n){
-    this.query = function(cb) {
+    this.query = function() {
         var table = [];
         for (var i = 1; i <= n; i++) {
             table.push([['n',i],['2n',2*i]]);
         }
-        cb(null,table);
+        return table;
     }
 }
