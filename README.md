@@ -139,10 +139,10 @@ function ShouldIBuyMilk() {
 Using JSON
 
 ```
-|Json                        |
-|json              |X and Y ?|
-|{x:1,y:'Hi!'}     |1 Hi!    |
-|{x:'Bar', y:'Baz'}|Bar Baz  |
+|Json                         |
+|json               |X and Y ?|
+|{x:1,y:2}          |3        |
+|{x:'Bar', y:' Baz'}|Bar Baz  |
 ```
 
 ```javascript
@@ -152,7 +152,7 @@ function Json(){
     }
 
     this.XAndY = function(){
-        return this.obj.x + " " + this.obj.y;
+        return this.obj.x + this.obj.y;
     }
 }
 

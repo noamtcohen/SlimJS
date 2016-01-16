@@ -8,6 +8,6 @@ function Json(){
     }
 
     this.XAndY = function(){
-        return this.obj.x + " " + this.obj.y;
+        return this.obj.x  + this.obj.y;
     }
 }
