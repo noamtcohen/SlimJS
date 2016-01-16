@@ -136,6 +136,28 @@ function ShouldIBuyMilk() {
 }
 ```
 
+Using JSON
+
+```
+|Json                        |
+|json              |X and Y ?|
+|{x:1,y:'Hi!'}     |1 Hi!    |
+|{x:'Bar', y:'Baz'}|Bar Baz  |
+```
+
+```javascript
+function Json(){
+    this.setJson = function(jsonObject){
+        this.obj = jsonObject;
+    }
+
+    this.XAndY = function(){
+        return this.obj.x + " " + this.obj.y;
+    }
+}
+
+```
+
 --
 #### For contributors
 
@@ -169,6 +191,11 @@ node src/udp-logger.js
 [Tomasz](https://github.com/mrt123) @mrt123. The first user of slimjs and for the async exec example.<br/>
 [Gregor Gramlich](https://github.com/ggramlich) @ggramlich. For help with the SliM protocol, the [PHP](https://github.com/ggramlich/phpslim) implementation and the promise proposal.<br/>
 [Christian Gagneraud](https://github.com/chgans) @chgans. With [QtSlim](https://github.com/chgans/QtSlim)
+
+
+<br/>
+##### Libraries:
+[json5](https://github.com/aseemk/json5)
 
 
 

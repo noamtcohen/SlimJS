@@ -13,6 +13,7 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 |slim-fit-test      |
 |nested/require-test|
 |my-test-file       |
+|json-test          |
 
 
 |eg.Division                    |
@@ -41,3 +42,8 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 |script|child_process      |
 |check |exec|node -v|v5.4.0|
 
+
+|Json                        |
+|json              |X and Y ?|
+|{x:1,y:'Hi!'}     |1 Hi!    |
+|{x:'Bar', y:'Baz'}|Bar Baz  |
