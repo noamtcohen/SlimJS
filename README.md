@@ -139,7 +139,7 @@ function ShouldIBuyMilk() {
 --
 #### For contributors
 
-Some examples of passing fixtures are below. I'm working to pass the [FitNesse test suite for slim](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests). 
+I'm working to pass the [FitNesse Test Suite for Slim](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests). 
 
 - [ChainTest](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainTest) - pass
 - [ChainWithInstanceTest](http://fitnesse.org/FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainWithInstanceTest) - pass
