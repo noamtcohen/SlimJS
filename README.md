@@ -33,7 +33,7 @@ function Hi(){
         this.echo = str;
     }
 
-    this.sayHi = function(cb){
+    this.sayHi = function(){
         return "Hi! " + this.echo;
     }
 }
