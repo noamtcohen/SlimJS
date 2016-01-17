@@ -190,12 +190,7 @@ node src/udp-logger.js
 ### Thanks to:
 [Tomasz](https://github.com/mrt123) @mrt123. The first user of slimjs and for the async exec example.<br/>
 [Gregor Gramlich](https://github.com/ggramlich) @ggramlich. For help with the SliM protocol, the [PHP](https://github.com/ggramlich/phpslim) implementation and the promise proposal.<br/>
-[Christian Gagneraud](https://github.com/chgans) @chgans. With [QtSlim](https://github.com/chgans/QtSlim)
+[Christian Gagneraud](https://github.com/chgans) @chgans. [QtSlim](https://github.com/chgans/QtSlim)<br/>
 
-
-<br/>
-#### Libraries:
-[json5](https://github.com/aseemk/json5)
-
-
-
+Libraries:<br/>
+[json5](https://github.com/aseemk/json5)<br/>
