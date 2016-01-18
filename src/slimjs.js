@@ -1,47 +1,59 @@
 #! /usr/bin/env node
 
 var path = require('path'),
-    LOG = require("./udp-logger").log,
-    slimtcp = require("./tcp-server.js"),
-    instructions = require("./StatementExecutor.js"),
-    classpath =  process.argv[process.argv.length - 2];
+    LOG = require("./utils/LOG").LOG,
+    SlimTcpServer = require("./tcp/SlimTcpServer.js"),
+    StatementExecutor = require("./execution/StatementExecutor.js"),
+    classpath =  process.argv[process.argv.length - 2],
+    port = process.argv[process.argv.length - 1];
 
 
-var fixtureFolder;
+new SlimJS(port,classpath);
 
-if(path.isAbsolute(classpath))
-    fixtureFolder = classpath;
-else
-    fixtureFolder= path.join(process.cwd(), classpath);
+function SlimJS(port,classpath){
+    var statementExecutor = new StatementExecutor(getAbsultePathToFixtureFolder(classpath));
 
-var statementExecutor = new instructions.StatementExecutor(fixtureFolder);
+    var tcpSlimServer = new SlimTcpServer(port, onReceivedInstructionSet);
+    tcpSlimServer.start();
 
-var tcpSlimServer = new slimtcp.SlimTcpServer(process.argv[process.argv.length - 1], onReceivedInstructionSet);
-tcpSlimServer.start();
+    function onReceivedInstructionSet(instructionSet, onFinalInstructionExecuted) {
+        var returnValues = [];
 
-function onReceivedInstructionSet(arr, cb) {
-    var ret = [];
+        var currentInstructionIndex = 0;
 
-    var currentInstructionIndex = 0;
+        executeInstruction(instructionSet[0], onInstructionExecutionResult);
 
-    function onResult(result) {
-        ret.push(result);
+        function onInstructionExecutionResult(result) {
+            returnValues.push(result);
 
-        currentInstructionIndex++;
+            currentInstructionIndex++;
 
-        if (currentInstructionIndex < arr.length)
-            doInstruction(arr[currentInstructionIndex], onResult);
-        else
-            cb(ret);
+            if (wasLastInstructionExecuted())
+                onFinalInstructionExecuted(returnValues);
+            else
+                executeInstruction(instructionSet[currentInstructionIndex], onInstructionExecutionResult);
+        }
+
+        function wasLastInstructionExecuted() {
+            return currentInstructionIndex === instructionSet.length;
+        }
     }
 
-    doInstruction(arr[0], onResult);
+    function executeInstruction(instructionArguments, cb) {
+        var command = instructionArguments[1];
+
+        statementExecutor[command](instructionArguments, cb);
+    }
+
+    function getAbsultePathToFixtureFolder(classpath) {
+        if (path.isAbsolute(classpath))
+            return classpath;
+        else
+            return path.join(process.cwd(), classpath);
+    }
 }
 
-function doInstruction(ins, cb) {
-    var cmd = ins[1];
 
-    statementExecutor[cmd](ins, cb);
-}
+
 
 

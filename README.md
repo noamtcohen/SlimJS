@@ -13,7 +13,7 @@ Create a test page in FitNesse and add this to the top of the page:
 
 ```
 !define TEST_SYSTEM {slim}
-!define COMMAND_PATTERN {slimjs %p}
+!define COMMAND_PATTERN {SlimJS %p}
 !path /Path/To/My/Fixtures
 
 |import      |
@@ -183,7 +183,7 @@ java -jar fitnesse-standalone.jar -p 8080
 
 To start the UDP logger (for debugging)
 ```
-node src/udp-logger.js
+node src/utils/LogUdpServer.js
 ```
 
 

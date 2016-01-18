@@ -47,3 +47,7 @@ FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 |json               |X and Y ?|
 |{x:1,y:2}          |3        |
 |{x:'Bar', y:' Baz'}|Bar Baz  |
+
+
+!include FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainTest
+!include FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainWithInstanceTest
