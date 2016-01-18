@@ -5,8 +5,7 @@
 FitNesse.SuiteAcceptanceTests.SuiteSlimTests
 
 
-!1 SlimJS  
-!4 sometimes when test a test, red is green.
+!1 SlimJS
 
 
 |import             |
