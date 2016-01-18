@@ -4,12 +4,21 @@ An Async Node.js SliM server for FitNesse
 
 Visit [FitNesse](http://www.fitnesse.org/) and say hi to [Uncle Bob!](https://cleancoders.com)
 
-To use slimjs on an existing FitNesse server:
+Update [NodeJS](https://nodejs.org/en/)<br/>
 
+To use slimjs on an existing FitNesse server:
 ```
 npm install -g slimjs
 ```
-Create a test page in FitNesse and add this to the top of the page:
+
+On **windows** there might be an error when java is trying to execute `SlimJS` even though installed globally. Try to replace `COMMAND_PATTERN ` with an absolute path.
+
+```
+!define COMMAND_PATTERN {node C:\Users\<MY_USER>\AppData\Roaming\npm\node_modules\slimjs\src\SlimJS %p}
+```
+
+For now you can't define more than one `!path` (including the one in root).<br/><br/>
+Create a test page in FitNesse and add this to the top of the page, remember on windows to replace `COMMAND_PATTERN` with an absolute path if needed:
 
 ```
 !define TEST_SYSTEM {slim}
@@ -24,6 +33,7 @@ Create a test page in FitNesse and add this to the top of the page:
 |Bob  |Hi! Bob |
 
 ```
+
 
 /Path/To/My/Fixtures/my-test-file.js
 
