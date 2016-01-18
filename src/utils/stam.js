@@ -2,7 +2,7 @@
  * Created by noamc on 1/6/16.
  */
 
-var Sandbox = new require("./../Sandbox")();//,
+var Sandbox = new require("./../exec/Sandbox")();//,
     //sandbox = new Sandbox();
 //searchPaths.loadFile("./fixtures/slim-fit-test.js",function(err){
 //    if(err)

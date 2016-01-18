@@ -3,7 +3,7 @@
 var path = require('path'),
     LOG = require("./utils/LOG").LOG,
     SlimTcpServer = require("./tcp/SlimTcpServer.js"),
-    StatementExecutor = require("./execution/StatementExecutor.js"),
+    StatementExecutor = require("./exec/StatementExecutor.js"),
     classpath =  process.argv[process.argv.length - 2],
     port = process.argv[process.argv.length - 1];
 
