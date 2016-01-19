@@ -35,7 +35,6 @@ function ShouldIBuyMilk() {
     }
 }
 
-
 var eg={
     Division:function(){
         var num;

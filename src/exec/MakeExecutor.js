@@ -24,17 +24,17 @@ function MakeExecutor(state){
 
         var args = instructionArgument.slice(4);
 
-        var obj = state.makeInstance(clazz, args);
+        state.makeInstance(clazz, args,function(err,obj){
+            if (err)
+                return cb([id, utils.toException(err)]);
 
-        if (obj instanceof Error)
-            return cb([id, utils.toException(obj)]);
+            if (isLibraryObject(instance))
+                state.pushToLibrary(instance,obj);
+            else
+                state.setInstance(instance,obj);
 
-        if (isLibraryObject(instance))
-            state.pushToLibrary(instance,obj);
-        else
-            state.setInstance(instance,obj);
-
-        cb([id, 'OK']);
+            cb([id, 'OK']);
+        });
     }
 
     function isLibraryObject(name){

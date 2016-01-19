@@ -34,4 +34,4 @@ function SlimHelperLibrary()
     }
 }
 
-module.exports.SlimHelperLibrary=SlimHelperLibrary;
+module.exports=SlimHelperLibrary;

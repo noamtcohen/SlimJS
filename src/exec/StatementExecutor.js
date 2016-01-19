@@ -3,7 +3,7 @@
  */
 
 var LOG = require("./../utils/LOG").LOG,
-    helper = require("./../SlimHelperLibrary"),
+    SlimHelperLibrary = require("./../SlimHelperLibrary"),
     ImportExecutor = require('./ImportExecutor'),
     MakeExecutor = require('./MakeExecutor'),
     ExecutionState = require('./ExecutionState'),
@@ -37,7 +37,7 @@ function StatementExecutor(fixFolder) {
 
     function addSlimHelperLibrary(executer)
     {
-        var slimHelper = new helper.SlimHelperLibrary();
+        var slimHelper = new SlimHelperLibrary();
         slimHelper.setStatementExecutor(executer);
 
         state.pushToLibrary(slimHelper.ACTOR_INSTANCE_NAME,slimHelper);

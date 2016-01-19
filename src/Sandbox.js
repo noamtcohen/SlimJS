@@ -6,7 +6,6 @@ var vm = require('vm'),
     fs = require('fs'),
     LOG = require("./utils/LOG").LOG;
 
-
 function Sandbox(){
 
     var scriptsContext = {
@@ -14,7 +13,7 @@ function Sandbox(){
         process:process,
         LOG:LOG,
 
-        make: function (name, args) {
+        make: function (name, args,cb) {
             if (!args)
                 args = [];
 
@@ -25,10 +24,14 @@ function Sandbox(){
                 for (var i = 1; i < ns.length; i++)
                     theType = theType[ns[i]];
 
-                return construct(theType, args);
+                if(!theType)
+                    return cb("NO_CLASS " + name,null);
+
+                var obj = construct(theType, args);
+                cb(null,obj);
             }
             catch (e) {
-                return new Error(e);
+                cb(Error(e),null);
             }
 
             function construct(T) {
@@ -48,8 +51,8 @@ function Sandbox(){
         module.paths.push(workingDirectory);
     }
 
-    this.make = function (name, args) {
-        return scriptsContext.make(name, args);
+    this.make = function (name, args,cb) {
+        scriptsContext.make(name, args,cb);
     }
 
     this.loadFile = function (path, cb) {
