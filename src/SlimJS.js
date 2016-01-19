@@ -5,13 +5,13 @@ var path = require('path'),
     SlimTcpServer = require("./tcp/SlimTcpServer.js"),
     StatementExecutor = require("./exec/StatementExecutor.js"),
     classpath =  process.argv[process.argv.length - 2],
+    arrayOfSearchPaths = classpath.split(path.delimiter),
     port = process.argv[process.argv.length - 1];
 
+new SlimJS(port,arrayOfSearchPaths);
 
-new SlimJS(port,classpath);
-
-function SlimJS(port,classpath){
-    var statementExecutor = new StatementExecutor(getAbsultePathToFixtureFolder(classpath));
+function SlimJS(port,arrayOfSearchPaths){
+    var statementExecutor = new StatementExecutor(arrayOfSearchPaths);
 
     var tcpSlimServer = new SlimTcpServer(port, onReceivedInstructionSet);
     tcpSlimServer.start();

@@ -17,7 +17,6 @@ On **windows** there might be an error when java is trying to execute `SlimJS` e
 !define COMMAND_PATTERN {node C:\Users\<MY_USER>\AppData\Roaming\npm\node_modules\slimjs\src\SlimJS %p}
 ```
 
-For now you can't define more than one `!path` (including the one in root).<br/><br/>
 Create a test page in FitNesse and add this to the top of the page, remember on windows to replace `COMMAND_PATTERN` with an absolute path if needed:
 
 ```

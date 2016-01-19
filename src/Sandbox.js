@@ -4,10 +4,10 @@
 
 var vm = require('vm'),
     fs = require('fs'),
+    path = require('path'),
     LOG = require("./utils/LOG").LOG;
 
-function Sandbox(){
-
+function Sandbox(arrayOfSearchPaths){
     var scriptsContext = {
         require: require,
         process:process,
@@ -55,19 +55,38 @@ function Sandbox(){
         scriptsContext.make(name, args,cb);
     }
 
-    this.loadFile = function (path, cb) {
-        fs.readFile(path,'utf8', function (err, js) {
-            if (err)
-                return cb(err);
-            try {
-                vm.runInContext(js, scriptsContext, path + ".vm");
-                cb(null);
-            }
-            catch (e) {
-                cb(new Error(e));
-            }
-        });
+    this.loadFile = function (name, cb) {
+        for(var i=0;i<arrayOfSearchPaths.length;i++){
+            var jsPath=path.join(arrayOfSearchPaths[i],name +'.js');
+            if(fileExists(jsPath))
+                return loadFileIntoScriptContext(jsPath,cb);
+        }
+
+        cb("File not found: " + name);
     }
+
+    function fileExists(jsPath){
+        try {
+            fs.accessSync(jsPath, fs.F_OK);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function loadFileIntoScriptContext(jsPath,cb){
+        var js = fs.readFileSync(jsPath,'utf8');
+        try {
+            vm.runInContext(js, scriptsContext, jsPath + ".vm");
+            cb(null);
+        }
+        catch (e) {
+            cb(new Error(e));
+        }
+    }
+
+    for(var i=0;i<arrayOfSearchPaths.length;i++)
+        this.addWorkingDirectory(arrayOfSearchPaths[i]);
 }
 
 module.exports=Sandbox;

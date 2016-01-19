@@ -5,14 +5,12 @@
 var Sandbox = require("./../Sandbox"),
     path = require('path');
 
-function ExecutionState(fixFolder){
+function ExecutionState(arrayOfSearchPaths){
     var instances = {};
     var library = [];
     var symbols  = {};
 
-    var sandbox = new Sandbox();
-    sandbox.addWorkingDirectory(fixFolder);
-
+    var sandbox = new Sandbox(arrayOfSearchPaths);
 
     this.setInstance = function(name,fixture){
         instances[name]=fixture;
@@ -50,8 +48,8 @@ function ExecutionState(fixFolder){
     this.makeInstance = sandbox.make;
 
     this.loadFileIntoSandbox = function(filename,cb){
-        var jsPath = path.join(fixFolder, filename + ".js");
-        sandbox.loadFile(jsPath,cb);
+        //var jsPath = path.join(fixFolder, filename + ".js");
+        sandbox.loadFile(filename,cb);
     }
 
     this.getLibraryObject = function(instanceName,funName){

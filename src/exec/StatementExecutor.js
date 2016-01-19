@@ -11,8 +11,8 @@ var LOG = require("./../utils/LOG").LOG,
     AssignExecutor = require('./AssignExecutor');
 
 
-function StatementExecutor(fixFolder) {
-    var state = new ExecutionState(fixFolder);
+function StatementExecutor(arrayOfSearchPaths) {
+    var state = new ExecutionState(arrayOfSearchPaths);
 
     var importer = new ImportExecutor(state);
     var maker = new MakeExecutor(state);
