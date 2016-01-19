@@ -2,7 +2,7 @@
  * Created by noam on 1/18/16.
  */
 
-var Sandbox = require("./Sandbox"),
+var Sandbox = require("./../Sandbox"),
     path = require('path');
 
 function ExecutionState(fixFolder){

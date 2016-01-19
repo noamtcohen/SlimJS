@@ -2,6 +2,9 @@
  * Created by noam on 1/18/16.
  */
 
+var ExecUtils = require('./ExecUtils'),
+    utils = new ExecUtils();
+
 function MakeExecutor(state){
     this.make = function (instructionArgument, cb) {
         var id = instructionArgument[0];
@@ -23,8 +26,8 @@ function MakeExecutor(state){
 
         var obj = state.makeInstance(clazz, args);
 
-        if (typeof obj === 'string')
-            return cb([id, toException(obj)]);
+        if (obj instanceof Error)
+            return cb([id, utils.toException(obj)]);
 
         if (isLibraryObject(instance))
             state.pushToLibrary(instance,obj);

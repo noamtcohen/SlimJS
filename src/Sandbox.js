@@ -4,7 +4,7 @@
 
 var vm = require('vm'),
     fs = require('fs'),
-    LOG = require("./../utils/LOG").LOG;
+    LOG = require("./utils/LOG").LOG;
 
 
 function Sandbox(){
@@ -28,7 +28,7 @@ function Sandbox(){
                 return construct(theType, args);
             }
             catch (e) {
-                return "Couldn't make '" + name + "'. (" + e + ")";
+                return new Error(e);
             }
 
             function construct(T) {

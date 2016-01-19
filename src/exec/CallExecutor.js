@@ -4,6 +4,9 @@
 
 var VOID = "/__VOID__/";
 
+var ExecUtils = require('./ExecUtils'),
+    utils = new ExecUtils();
+
 function CallExecutor(state){
     this.call = function (instructionArgument, cb, symbolNameToAssignTo) {
         var id = instructionArgument[0];
@@ -30,10 +33,10 @@ function CallExecutor(state){
                 tryToGetLibraryObject();
 
             if(!applyOnObject)
-                return cb([id, toException("NO_INSTANCE " + instanceName)]);
+                return cb([id, utils.toException("NO_INSTANCE " + instanceName)]);
 
             if(!theFunc)
-                return cb([id, toException("NO_METHOD_IN_CLASS " + funName)]);
+                return cb([id, utils.toException("NO_METHOD_IN_CLASS " + funName)]);
 
             var funReturn = theFunc.apply(applyOnObject, args);
 
@@ -55,11 +58,11 @@ function CallExecutor(state){
                 cb([id,val]);
 
             },function(err){
-                cb([id, toException(err)]);
+                cb([id, utils.toException(err)]);
             });
         }
         catch (e) {
-            cb([id, toException( e)]);
+            cb([id, utils.toException( e)]);
         }
 
         function tryToGetSUT() {
@@ -91,13 +94,6 @@ function CallExecutor(state){
         for (var i = 0; i < args.length; i++)
             if (args[i].toString().indexOf('$') === 0)
                 args[i] = state.getSymbol(args[i].substr(1));
-    }
-
-    function toException(e) {
-        if(e.stack)
-            return "__EXCEPTION__:"+e.stack.toString();
-
-        return "__EXCEPTION__:message:<<" + e.toString() + ">>";
     }
 
     function isPromise(funReturn) {
