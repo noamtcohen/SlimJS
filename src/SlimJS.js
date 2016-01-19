@@ -44,13 +44,6 @@ function SlimJS(port,arrayOfSearchPaths){
 
         statementExecutor[command](instructionArguments, cb);
     }
-
-    function getAbsultePathToFixtureFolder(classpath) {
-        if (path.isAbsolute(classpath))
-            return classpath;
-        else
-            return path.join(process.cwd(), classpath);
-    }
 }
 
 
