@@ -1,4 +1,4 @@
-delay 1
+delay 2
 tell application "Google Chrome Canary"
   activate
 end tell
