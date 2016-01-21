@@ -96,8 +96,8 @@ function CallExecutor(state){
                 args[i] = state.getSymbol(args[i].substr(1));
     }
 
-    function isPromise(funReturn) {
-        return funReturn.then && typeof funReturn.then === 'function';
+    function isPromise(obj) {
+        return obj.then && Object.keys(obj).length ===1 && typeof obj.then === 'function' && obj.then.length===2;
     }
 
     function isOptionalFunction(funName){
