@@ -28,3 +28,8 @@ function EchoFixture(){
         return i;
     }
 }
+
+
+module.exports={
+    EchoFixture:EchoFixture
+}

@@ -16,3 +16,5 @@ function child_process() {
     }
 }
 
+
+module.exports.child_process=child_process;

@@ -11,3 +11,5 @@ function Json(){
         return this.obj.x  + this.obj.y;
     }
 }
+
+module.exports.Json = Json;

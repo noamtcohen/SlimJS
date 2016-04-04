@@ -2,7 +2,7 @@
  * Created by noam on 1/13/16.
  */
 
-require("test-this-too.js");
+require("./test-this-too");
 
 function Hi(){
     this.setEcho = function(str){
@@ -13,3 +13,5 @@ function Hi(){
         return "Hi! " + this.echo;
     }
 }
+
+module.exports.Hi = Hi;

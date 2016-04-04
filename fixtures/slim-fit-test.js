@@ -51,3 +51,10 @@ var eg={
         }
     }
 };
+
+
+module.exports={
+    eg:eg,
+    Greeter:Greeter,
+    ShouldIBuyMilk:ShouldIBuyMilk
+}

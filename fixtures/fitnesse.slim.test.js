@@ -33,3 +33,8 @@ function TestQuery(n){
         return table;
     }
 }
+
+module.exports={
+    TestSlim:TestSlim,
+    TestQuery:TestQuery
+}

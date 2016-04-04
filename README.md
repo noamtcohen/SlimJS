@@ -46,6 +46,8 @@ function Hi(){
         return "Hi! " + this.echo;
     }
 }
+
+module.exports.Hi = Hi;
 ```
 
 If you want to do something asynchronous, return a `thenable` (promise): 
@@ -73,6 +75,8 @@ function child_process() {
         }
     }
 }
+
+module.exports.child_process=child_process;
 ```
 
 Using namespaces:
@@ -103,6 +107,8 @@ var eg={
         }
     }
 };
+
+module.exports.eg=eg;
 ```
 
 Name conversion:
@@ -143,6 +149,8 @@ function ShouldIBuyMilk() {
         return ret;
     }
 }
+
+module.exports.ShouldIBuyMilk=ShouldIBuyMilk;
 ```
 
 Using JSON
@@ -165,6 +173,7 @@ function Json(){
     }
 }
 
+module.exports.Json=Json;
 ```
 
 --

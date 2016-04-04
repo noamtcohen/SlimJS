@@ -4,14 +4,14 @@
 
 var vm = require('vm'),
     fs = require('fs'),
-    path = require('path'),
-    LOG = require("./utils/LOG").LOG;
+    path = require('path');
 
 function Sandbox(arrayOfSearchPaths){
     var scriptsContext = {
         require: require,
         process:process,
-        LOG:LOG,
+        console:console,
+        _S_L_I_M_J_S_:[],
 
         make: function (name, args,cb) {
             if (!args)
@@ -20,9 +20,20 @@ function Sandbox(arrayOfSearchPaths){
             try {
                 var ns = name.split('.');
 
-                var theType = this[ns[0]];
-                for (var i = 1; i < ns.length; i++)
-                    theType = theType[ns[i]];
+                var theType;
+
+                for(var v=0;v<this["_S_L_I_M_J_S_"].length;v++)
+                {
+                    theType = this["_S_L_I_M_J_S_"][v][ns[0]];
+                    if(!theType)
+                        continue;
+
+                    for (var i = 1; i < ns.length; i++)
+                        theType = theType[ns[i]];
+
+                    if(theType)
+                        break;
+                }
 
                 if(!theType)
                     return cb("NO_CLASS " + name,null);
@@ -75,7 +86,7 @@ function Sandbox(arrayOfSearchPaths){
     }
 
     function loadFileIntoScriptContext(jsPath,cb){
-        var js = fs.readFileSync(jsPath,'utf8');
+        var js = "_S_L_I_M_J_S_.push(require('"+jsPath+"'))";
         try {
             vm.runInContext(js, scriptsContext, jsPath + ".vm");
             cb(null);
