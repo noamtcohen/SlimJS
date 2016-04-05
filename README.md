@@ -6,6 +6,9 @@ Visit [FitNesse](http://www.fitnesse.org/) and say hi to [Uncle Bob!](https://cl
 
 Update [NodeJS](https://nodejs.org/en/)<br/>
 
+***Version 2.0 backwards compatibility issue***<br/>
+You must add `module.exports.YourClassName=YourClassName` to the end of your fixtures. I couldn't maintain backwards compatibility with version 1.* since this is significat change in the way SlimJS imports the test fixture to the execution sandbox vm.
+
 To use slimjs on an existing FitNesse server:
 ```
 npm install -g slimjs
