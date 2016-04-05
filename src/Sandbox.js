@@ -67,7 +67,7 @@ function Sandbox(arrayOfSearchPaths){
 
     this.loadFile = function (name, cb) {
         for(var i=0;i<arrayOfSearchPaths.length;i++){
-            var jsPath=path.join(arrayOfSearchPaths[i],name +'.js');
+            var jsPath=path.resolve(path.join(arrayOfSearchPaths[i],name +'.js'));
             if(fileExists(jsPath))
                 return loadFileIntoScriptContext(jsPath,cb);
         }
