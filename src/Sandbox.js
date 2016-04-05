@@ -11,7 +11,7 @@ function Sandbox(arrayOfSearchPaths){
         require: require,
         process:process,
         console:console,
-        _S_L_I_M_J_S_:[],
+        theRequireArrayOfTheTestFixtures:[],
 
         make: function (name, args,cb) {
             if (!args)
@@ -22,14 +22,17 @@ function Sandbox(arrayOfSearchPaths){
 
                 var theType;
 
-                for(var v=0;v<this["_S_L_I_M_J_S_"].length;v++)
+                for(var v=0;v<this["theRequireArrayOfTheTestFixtures"].length;v++)
                 {
-                    theType = this["_S_L_I_M_J_S_"][v][ns[0]];
-                    if(!theType)
-                        continue;
+                    theType = this["theRequireArrayOfTheTestFixtures"][v][ns[0]];
 
                     for (var i = 1; i < ns.length; i++)
+                    {
+                        if(!theType)
+                            continue;
+
                         theType = theType[ns[i]];
+                    }
 
                     if(theType)
                         break;
@@ -58,10 +61,6 @@ function Sandbox(arrayOfSearchPaths){
 
     vm.createContext(scriptsContext);
 
-    this.addWorkingDirectory = function(workingDirectory){
-        module.paths.push(workingDirectory);
-    }
-
     this.make = function (name, args,cb) {
         scriptsContext.make(name, args,cb);
     }
@@ -86,7 +85,7 @@ function Sandbox(arrayOfSearchPaths){
     }
 
     function loadFileIntoScriptContext(jsPath,cb){
-        var js = "_S_L_I_M_J_S_.push(require('"+jsPath+"'))";
+        var js = "theRequireArrayOfTheTestFixtures.push(require('"+jsPath+"'))";
         try {
             vm.runInContext(js, scriptsContext, jsPath + ".vm");
             cb(null);
@@ -95,9 +94,6 @@ function Sandbox(arrayOfSearchPaths){
             cb(new Error(e));
         }
     }
-
-    for(var i=0;i<arrayOfSearchPaths.length;i++)
-        this.addWorkingDirectory(arrayOfSearchPaths[i]);
 }
 
 module.exports=Sandbox;
