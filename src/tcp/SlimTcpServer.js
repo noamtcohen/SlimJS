@@ -11,72 +11,24 @@ function SlimTcpServer(port, doInstructionSet) {
     this.start = function () {
 
         startServer();
-
+        var server;
         function startServer(){
-            net.createServer(handleNewConnection).listen(port);
+            server = net.createServer(handleNewConnection).listen(port);
         }
 
         function handleNewConnection(socket){
+            socket.on("error",function(e){
+                if(fitNesseClosedConnection(e))
+                    server.close();
+                else
+                    throw e;
+            });
+
             new ConnectionHandler(socket,doInstructionSet);
-            //socket.write(VERSION_LINE);
-            //
-            //var buffer = "";
-            //var lenHeader;
-            //var payloadLength;
-            //
-            //socket.on('data', processData);
-            //
-            //function processData(data){
-            //    appendDataToBuffer(data);
-            //
-            //    tryToParseLengthHeader();
-            //
-            //    tryToParsePayloadBody()
-            //}
-            //
-            //function appendDataToBuffer(data){
-            //    buffer += data.toString();
-            //}
-            //
-            //function tryToParseLengthHeader(){
-            //    if (payloadLengthHeaderHasArrived())
-            //        parseLengthHeader();
-            //}
-            //
-            //function tryToParsePayloadBody(){
-            //    if (payloadBodyHasArrived())
-            //        executeInstructionSet();
-            //}
-            //
-            //function payloadLengthHeaderHasArrived() {
-            //    return !payloadLength && buffer.indexOf(':') != -1;
-            //}
-            //
-            //function payloadBodyHasArrived() {
-            //    return buffer.length - lenHeader.length == payloadLength;
-            //}
-            //
-            //function parseLengthHeader(){
-            //    lenHeader = buffer.substr(0, buffer.indexOf(':') + 1);
-            //    payloadLength = parseInt(lenHeader);
-            //}
-            //
-            //function executeInstructionSet(t){
-            //    var instructionArray = slimParser.parse(buffer.substr(lenHeader.length));
-            //
-            //    doInstructionSet(instructionArray, function (executionResult) {
-            //        var slim = slimParser.stringify(executionResult);
-            //        socket.write(slim);
-            //    });
-            //
-            //    getReadyForNextPayload();
-            //}
-            //
-            //function getReadyForNextPayload(){
-            //    buffer = "";
-            //    lenHeader = null;
-            //    payloadLength = null;
-            //}
+        }
+
+        function fitNesseClosedConnection(e){
+            return e.code==='ECONNRESET';
         }
     }
 }
