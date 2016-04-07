@@ -5,6 +5,7 @@
 var SlimParser = require("./SlimParser");
 
 var slimParser = new SlimParser();
+var BYE = "bye";
 
 function ConnectionHandler(socket,doInstructionSet){
     var VERSION_LINE = "Slim -- V" + "0.4" + "\n";
@@ -53,9 +54,15 @@ function ConnectionHandler(socket,doInstructionSet){
     }
 
     function executeInstructionSet(t){
-        var instructionArray = slimParser.parse(buffer.substr(lenHeader.length));
+        var instructionData = buffer.substr(lenHeader.length);
 
-        doInstructionSet(instructionArray, function (executionResult) {
+        var instruction;
+        if(instructionData===BYE)
+            instruction = BYE;
+        else
+            instruction = slimParser.parse(instructionData);
+        
+        doInstructionSet(instruction, function (executionResult) {
             var slim = slimParser.stringify(executionResult);
             socket.write(slim);
         });

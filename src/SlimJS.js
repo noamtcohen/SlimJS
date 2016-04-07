@@ -10,6 +10,7 @@ var path = require('path'),
 
 new SlimJS(port,arrayOfSearchPaths);
 
+var BYE = "bye";
 function SlimJS(port,arrayOfSearchPaths){
     var statementExecutor = new StatementExecutor(arrayOfSearchPaths);
 
@@ -21,6 +22,9 @@ function SlimJS(port,arrayOfSearchPaths){
 
         var currentInstructionIndex = 0;
 
+        if(instructionSet===BYE)
+            return onFinalInstructionExecuted(returnValues);
+
         executeInstruction(instructionSet[0], onInstructionExecutionResult);
 
         function onInstructionExecutionResult(result) {
@@ -28,14 +32,14 @@ function SlimJS(port,arrayOfSearchPaths){
 
             currentInstructionIndex++;
 
-            if (wasLastInstructionExecuted())
+            if (wasLastInstructionExecuted(result))
                 onFinalInstructionExecuted(returnValues);
             else
                 executeInstruction(instructionSet[currentInstructionIndex], onInstructionExecutionResult);
         }
 
-        function wasLastInstructionExecuted() {
-            return currentInstructionIndex === instructionSet.length;
+        function wasLastInstructionExecuted(result) {
+            return result===BYE || currentInstructionIndex === instructionSet.length;
         }
     }
 
