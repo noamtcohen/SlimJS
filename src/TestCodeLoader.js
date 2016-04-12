@@ -7,7 +7,7 @@ var fs = require('fs'),
 
 var theRequireArrayOfTheTestFixtures=[];
 
-function Sandbox(arrayOfSearchPaths){
+function TestCodeLoader(arrayOfSearchPaths){
     this.loadFile = function (name, cb) {
         for(var i=0;i<arrayOfSearchPaths.length;i++){
             var jsPath=path.resolve(path.join(arrayOfSearchPaths[i],name +'.js'));
@@ -38,7 +38,7 @@ function Sandbox(arrayOfSearchPaths){
     }
 }
 
-Sandbox.prototype.make = function(name, args,cb) {
+TestCodeLoader.prototype.make = function(name, args, cb) {
     if (!args)
         args = [];
 
@@ -83,4 +83,4 @@ Sandbox.prototype.make = function(name, args,cb) {
     }
 }
 
-module.exports=Sandbox;
+module.exports=TestCodeLoader;

@@ -2,15 +2,14 @@
  * Created by noam on 1/18/16.
  */
 
-var Sandbox = require("./../Sandbox"),
-    path = require('path');
+var TestCodeLoader = require("./../TestCodeLoader");
 
-function ExecutionState(arrayOfSearchPaths){
+function ExecutionManager(arrayOfSearchPaths){
     var instances = {};
     var library = [];
     var symbols  = {};
 
-    var sandbox = new Sandbox(arrayOfSearchPaths);
+    var testCodeLoader = new TestCodeLoader(arrayOfSearchPaths);
 
     this.setInstance = function(name,fixture){
         instances[name]=fixture;
@@ -45,11 +44,10 @@ function ExecutionState(arrayOfSearchPaths){
         return Object.keys(symbols);
     }
 
-    this.makeInstance = sandbox.make;
+    this.makeInstance = testCodeLoader.make;
 
     this.loadFileIntoSandbox = function(filename,cb){
-        //var jsPath = path.join(fixFolder, filename + ".js");
-        sandbox.loadFile(filename,cb);
+        testCodeLoader.loadFile(filename,cb);
     }
 
     this.getLibraryObject = function(instanceName,funName){
@@ -69,4 +67,4 @@ function ExecutionState(arrayOfSearchPaths){
 }
 
 
-module.exports =ExecutionState;
+module.exports =ExecutionManager;

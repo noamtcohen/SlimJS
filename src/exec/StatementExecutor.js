@@ -2,22 +2,21 @@
  * Created by noam on 1/5/16.
  */
 
-var LOG = require("./../utils/LOG").LOG,
-    SlimHelperLibrary = require("./../SlimHelperLibrary"),
+var SlimHelperLibrary = require("./../SlimHelperLibrary"),
     ImportExecutor = require('./ImportExecutor'),
     MakeExecutor = require('./MakeExecutor'),
-    ExecutionState = require('./ExecutionState'),
+    ExecutionManager = require('./ExecutionManager'),
     CallExecutor = require('./CallExecutor'),
     AssignExecutor = require('./AssignExecutor');
 
 
 function StatementExecutor(arrayOfSearchPaths) {
-    var state = new ExecutionState(arrayOfSearchPaths);
+    var execManager = new ExecutionManager(arrayOfSearchPaths);
 
-    var importer = new ImportExecutor(state);
-    var maker = new MakeExecutor(state);
-    var caller = new CallExecutor(state);
-    var assigner = new AssignExecutor(state);
+    var importer = new ImportExecutor(execManager);
+    var maker = new MakeExecutor(execManager);
+    var caller = new CallExecutor(execManager);
+    var assigner = new AssignExecutor(execManager);
 
     addSlimHelperLibrary(this);
 
@@ -28,11 +27,11 @@ function StatementExecutor(arrayOfSearchPaths) {
     this.assign = assigner.assign;
 
     this.setInstance = function(name,fixture){
-        state.setInstance(name,fixture);
+        execManager.setInstance(name,fixture);
     }
 
     this.instance =function(name){
-        return state.getInstance(name);
+        return execManager.getInstance(name);
     }
 
     function addSlimHelperLibrary(executer)
@@ -40,7 +39,7 @@ function StatementExecutor(arrayOfSearchPaths) {
         var slimHelper = new SlimHelperLibrary();
         slimHelper.setStatementExecutor(executer);
 
-        state.pushToLibrary(slimHelper.ACTOR_INSTANCE_NAME,slimHelper);
+        execManager.pushToLibrary(slimHelper.ACTOR_INSTANCE_NAME,slimHelper);
     }
 }
 
