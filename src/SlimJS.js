@@ -15,17 +15,22 @@ function SlimJS(port,arrayOfSearchPaths){
     var statementExecutor = new StatementExecutor(arrayOfSearchPaths);
 
     var tcpSlimServer = new SlimTcpServer(port, onReceivedInstructionSet);
+
+    tcpSlimServer.setOnInstructionArrived(onReceivedInstructionSet);
     tcpSlimServer.start();
 
-    function onReceivedInstructionSet(instructionSet, onFinalInstructionExecuted) {
+    function onReceivedInstructionSet(instructionSet) {
         var returnValues = [];
 
         var currentInstructionIndex = 0;
 
         if(instructionSet===BYE)
-            return onFinalInstructionExecuted(returnValues);
+        {
+            tcpSlimServer.writeResult(returnValues);
+            return process.exit(0);
+        }
 
-        executeInstruction(instructionSet[0], onInstructionExecutionResult);
+        executeInstruction(instructionSet[0],onInstructionExecutionResult);
 
         function onInstructionExecutionResult(result) {
             returnValues.push(result);
@@ -33,7 +38,7 @@ function SlimJS(port,arrayOfSearchPaths){
             currentInstructionIndex++;
 
             if (wasLastInstructionExecuted(result))
-                onFinalInstructionExecuted(returnValues);
+                tcpSlimServer.writeResult(returnValues); //onFinalInstructionExecuted(returnValues);
             else
                 executeInstruction(instructionSet[currentInstructionIndex], onInstructionExecutionResult);
         }

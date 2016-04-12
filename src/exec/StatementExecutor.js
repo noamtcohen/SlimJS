@@ -21,7 +21,7 @@ function StatementExecutor(arrayOfSearchPaths) {
 
     addSlimHelperLibrary(this);
 
-    this.import = importer.import;
+    this.import =  importer.import;
     this.make = maker.make;
     this.call = caller.call;
     this.callAndAssign = caller.callAndAssign;

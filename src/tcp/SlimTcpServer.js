@@ -7,7 +7,18 @@ var net = require('net'),
     ConnectionHandler = require('./ConnectionHandler');
 
 
-function SlimTcpServer(port, doInstructionSet) {
+function SlimTcpServer(port) {
+
+    var handler = new ConnectionHandler();
+
+    this.setOnInstructionArrived = function(onInstruction){
+        handler.setOnInstructionHandler(onInstruction);
+    }
+
+    this.writeResult = function(result){
+        handler.writeResult(result);
+    };
+
     this.start = function () {
 
         startServer();
@@ -16,20 +27,11 @@ function SlimTcpServer(port, doInstructionSet) {
             server = net.createServer(handleNewConnection).listen(port);
         }
 
-        function handleNewConnection(socket){
-            socket.on("error",function(e){
-                if(fitNesseClosedConnection(e))
-                    server.close();
-                else
-                    throw e;
-            });
+    }
 
-            new ConnectionHandler(socket,doInstructionSet);
-        }
 
-        function fitNesseClosedConnection(e){
-            return e.code==='ECONNRESET';
-        }
+    function handleNewConnection(socket){
+        handler.handle(socket);
     }
 }
 

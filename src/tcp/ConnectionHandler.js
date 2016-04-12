@@ -7,16 +7,32 @@ var SlimParser = require("./SlimParser");
 var slimParser = new SlimParser();
 var BYE = "bye";
 
-function ConnectionHandler(socket,doInstructionSet){
+function ConnectionHandler(){
     var VERSION_LINE = "Slim -- V" + "0.4" + "\n";
-
-    socket.write(VERSION_LINE);
 
     var buffer = "";
     var lenHeader;
     var payloadLength;
+    var _socket;
+    var doInstructionSet;
+    this.setOnInstructionHandler = function(handler){
+        doInstructionSet = handler;
+    };
 
-    socket.on('data', processData);
+    this.handle = function(socket){
+        _socket = socket;
+        _socket.write(VERSION_LINE);
+        _socket.on('data', processData);
+
+        _socket.on("error",function(){
+            process.exit(0);
+        });
+    };
+
+    this.writeResult = function(executionResult){
+        var slim = slimParser.stringify(executionResult);
+        _socket.write(slim);
+    };
 
     function processData(data){
         appendDataToBuffer(data);
@@ -62,10 +78,7 @@ function ConnectionHandler(socket,doInstructionSet){
         else
             instruction = slimParser.parse(instructionData);
         
-        doInstructionSet(instruction, function (executionResult) {
-            var slim = slimParser.stringify(executionResult);
-            socket.write(slim);
-        });
+        doInstructionSet(instruction);
 
         getReadyForNextPayload();
     }
