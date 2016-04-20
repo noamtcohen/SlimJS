@@ -50,7 +50,7 @@ function CallExecutor(state){
                 return cb([id, funReturn]);
             }
 
-            funReturn.then(function(val){
+            funReturn.then.call(applyOnObject,function(val){
 
                 if (symbolNameToAssignTo)
                     state.setSymbol(symbolNameToAssignTo,val);
@@ -97,7 +97,7 @@ function CallExecutor(state){
     }
 
     function isPromise(obj) {
-        return obj.then && Object.keys(obj).length ===1 && typeof obj.then === 'function' && obj.then.length===2;
+        return obj.then && Object.keys(obj).length ===1 && typeof obj.then === 'function' && obj.then.length>=1;
     }
 
     function isOptionalFunction(funName){
