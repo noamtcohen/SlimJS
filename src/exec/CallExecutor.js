@@ -36,7 +36,7 @@ function CallExecutor(state){
                 return cb([id, utils.toException("NO_INSTANCE " + instanceName)]);
 
             if(!theFunc)
-                return cb([id, utils.toException("NO_METHOD_IN_CLASS " + funName)]);
+                return cb([id, utils.toException("NO_METHOD_IN_CLASS " + funName + " " + applyOnObject.constructor.name)]);
 
             var funReturn = theFunc.apply(applyOnObject, args);
 

@@ -2,6 +2,11 @@
  * Created by noam on 4/21/16.
  */
 
+function prmis(task){
+    return{
+        then:task
+    }
+}
 
 var http = require('http');
 
@@ -15,12 +20,10 @@ server.prototype={
     },
 
     startServer:function(){
-        return{
-            then:function(fulfil,reject){
-                this.httpServer =http.createServer();
-                fulfil(true);
-            }
-        }
+        return prmis(function(fulfil,reject){
+            this.httpServer =http.createServer();
+            fulfil(true);
+        });
     },
 
     shutdown:function(){
