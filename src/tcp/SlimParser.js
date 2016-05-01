@@ -75,9 +75,8 @@ function SlimParser() {
         if (val.toLowerCase() === 'true' || val.toLowerCase() === 'false')
             return val.toLowerCase();
 
-        var num = parseFloat(val);
-        if (!isNaN(num))
-            return num;
+        if (isNumber(val))
+            return parseFloat(val);
 
         if (val.trim().indexOf('{') === 0) {
             try {
@@ -88,6 +87,10 @@ function SlimParser() {
         }
 
         return '"' + val.replace(/"/g, '\\"') + '"'
+    }
+
+    function isNumber(str){
+        return !isNaN(str);
     }
 }
 
