@@ -90,7 +90,7 @@ function SlimParser() {
     }
 
     function isNumber(str){
-        return !isNaN(str);
+        return str && !isNaN(str);
     }
 }
 
