@@ -24,7 +24,7 @@ function CallExecutor(state){
             if (!theFunc && isOptionalFunction(funName))
                 return cb([id, VOID]);
 
-            loadSybolValuesToArguments(args);
+            state.loadSymbolValuesToArguments(args);
 
             if(!theFunc)
                 tryToGetSUT();
@@ -88,13 +88,6 @@ function CallExecutor(state){
 
         this.call(instructionArgument, cb, symbolName);
     };
-
-
-    function loadSybolValuesToArguments(args) {
-        for (var i = 0; i < args.length; i++)
-            if (args[i].toString().indexOf('$') === 0)
-                args[i] = state.getSymbol(args[i].substr(1));
-    }
 
     function isPromise(obj) {
         return obj.then && typeof obj.then === 'function';
