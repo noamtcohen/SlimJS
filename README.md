@@ -6,7 +6,7 @@ To use slimjs on an existing FitNesse server:
 ```
 npm install -g slimjs
 ```
-If you want to most recent version please use the github repo since npm is not allways up-to-date.
+If you want to use the most recent version please use the github repo since npm is not always up-to-date.
 
 
 On **windows** there might be an error when java is trying to execute `SlimJS` even though installed globally. Try to replace `COMMAND_PATTERN ` with an absolute path.
