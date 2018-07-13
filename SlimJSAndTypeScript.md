@@ -31,4 +31,9 @@ Tell SlimJS where to find the fixtures. This directory should contain your TypeS
 ```
 Define any port (except 1) for compatibility with newer versions of FitNesse. 
 
+### What's missing?
+
+The next logical step would be to be able to test e.g. React code through SlimJS.
+Unfortunately, I always ended up with React being undefined in my production code components.
+If you happen to figure out how this can be achieved, [I'd be super grateful if you could send me a short message](mailto:nicole.m@gmx.de)!
 
