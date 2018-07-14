@@ -16,6 +16,12 @@ On **windows** there might be an error when java is trying to execute `SlimJS` e
 !define COMMAND_PATTERN {node C:\Users\<MY_USER>\AppData\Roaming\npm\node_modules\slimjs\src\SlimJS %p}
 ```
 
+```
+!define SLIM_PORT {9086}
+```
+Define any port (except 1) for compatibility with newer versions of FitNesse. 
+
+
 Create a test page in FitNesse and add this to the top of the page, remember on windows to replace `COMMAND_PATTERN` with an absolute path if needed:
 
 ```
@@ -208,6 +214,7 @@ node src/utils/LogUdpServer.js
 [Tomasz](https://github.com/mrt123) @mrt123. The first user of slimjs and for the async exec example.<br/>
 [Gregor Gramlich](https://github.com/ggramlich) @ggramlich. For help with the SliM protocol, the [PHP](https://github.com/ggramlich/phpslim) implementation and the promise proposal.<br/>
 [Christian Gagneraud](https://github.com/chgans) @chgans. [QtSlim](https://github.com/chgans/QtSlim)<br/>
+[Nicole Rauch](https://github.com/NicoleRauch) for important issues and TypeScript support.<br/>
 
 Libraries:<br/>
 [json5](https://github.com/aseemk/json5)<br/>
