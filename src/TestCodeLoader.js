@@ -10,26 +10,35 @@ var theRequireArrayOfTheTestFixtures=[];
 function TestCodeLoader(arrayOfSearchPaths){
     this.loadFile = function (name, cb) {
         for(var i=0;i<arrayOfSearchPaths.length;i++){
+            var tsxPath=path.resolve(path.join(arrayOfSearchPaths[i],name +'.tsx'));
+            if(fileExists(tsxPath)){
+                return loadFixture(tsxPath,cb);
+            }
+            var tsPath=path.resolve(path.join(arrayOfSearchPaths[i],name +'.ts'));
+            if(fileExists(tsPath)){
+                return loadFixture(tsPath,cb);
+            }
             var jsPath=path.resolve(path.join(arrayOfSearchPaths[i],name +'.js'));
-            if(fileExists(jsPath))
+            if(fileExists(jsPath)){
                 return loadFixture(jsPath,cb);
+            }
         }
 
         cb("File not found: " + name);
     }
 
-    function fileExists(jsPath){
+    function fileExists(file){
         try {
-            fs.accessSync(jsPath, fs.F_OK);
+            fs.accessSync(file, fs.F_OK);
             return true;
         } catch (e) {
             return false;
         }
     }
 
-    function loadFixture(jsPath,cb){
+    function loadFixture(file,cb){
         try {
-            theRequireArrayOfTheTestFixtures.push(require(jsPath));
+            theRequireArrayOfTheTestFixtures.push(require(file));
             cb(null);
         }
         catch (e) {
