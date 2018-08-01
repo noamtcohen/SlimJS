@@ -43,21 +43,13 @@ function CallExecutor(state){
             if(typeof funReturn === 'undefined')
                 return cb([id,VOID]);
 
-            if(!isPromise(funReturn)){
-                if (symbolNameToAssignTo)
-                    state.setSymbol(symbolNameToAssignTo,funReturn);
-
-                return cb([id, funReturn]);
-            }
-
-            funReturn.then.call(applyOnObject,function(val){
-
-                if (symbolNameToAssignTo)
-                    state.setSymbol(symbolNameToAssignTo,val);
-
-                cb([id,val]);
-
-            },function(err){
+            Promise.resolve(funReturn)
+            .then( function (val) {
+                if(symbolNameToAssignTo)
+                    state.setSymbol(symbolNameToAssignTo, res);
+                return cb([id,val]);
+            })
+            .catch( function (err) {
                 cb([id, utils.toException(err)]);
             });
         }
