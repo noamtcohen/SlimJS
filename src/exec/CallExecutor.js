@@ -50,7 +50,7 @@ function CallExecutor(state){
                 return cb([id, funReturn]);
             }
 
-            funReturn.then.call(applyOnObject,function(val){
+            funReturn.then.call(funReturn,function(val){
 
                 if (symbolNameToAssignTo)
                     state.setSymbol(symbolNameToAssignTo,val);
