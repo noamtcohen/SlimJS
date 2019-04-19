@@ -66,7 +66,7 @@ function ConnectionHandler(){
     }
 
     function payloadBodyHasArrived() {
-        return buffer.length - lenHeader.length == payloadLength;
+        return Buffer.byteLength(buffer, 'utf8') - lenHeader.length == payloadLength;
     }
 
     function executeInstructionSet(t){
