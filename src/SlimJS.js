@@ -28,6 +28,8 @@ function SlimJS(port,arrayOfSearchPaths){
         {
             tcpSlimServer.writeResult(returnValues);
             return process.exit(0);
+            // console.log(new Date() + ": received BYE")
+            // return;
         }
 
         executeInstruction(instructionSet[0],onInstructionExecutionResult);

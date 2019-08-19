@@ -14,22 +14,20 @@ function server(){
     this.httpServer;
 }
 
-server.prototype={
-    self:function(){
-        return this;
-    },
+server.prototype.self = function () {
+    return this;
+}
 
-    startServer:function(){
-        return prmis(function(fulfil,reject){
-            this.httpServer =http.createServer();
-            fulfil(true);
-        });
-    },
+server.prototype.startServer = function () {
+    return prmis((fulfil, reject) => {
+        this.httpServer = http.createServer();
+        fulfil(true);
+    });
+}
 
-    shutdown:function(){
-        this.httpServer.close();
-        return true;
-    }
+server.prototype.shutdown = function () {
+    this.httpServer.close();
+    return true;
 }
 
 function commander(){}
