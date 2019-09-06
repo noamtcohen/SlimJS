@@ -52,4 +52,4 @@ References:
 
 !include SampleTests.AsyncDemo
 
-!include SampleTests.Ilya
+!include SampleTests.ilya
