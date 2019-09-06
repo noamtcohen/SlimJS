@@ -1,0 +1,36 @@
+!1 Introduction
+This is a working example of configuring FitNesse to test code written in Javascript. Settings here affect ALL Wiki pages that are under (aka children of) this one. In other words, all pages with a URL matching !-JavascriptTesting.*-!.
+
+!1 Configure SLIM
+References:
+
+ * FitNesse.UserGuide.WritingAcceptanceTests.SliM
+
+!define TEST_SYSTEM {slim}
+Tells FitNesse to use the SLIM Test System.
+
+!define slim.port {8085}
+We set slim.port to 8085, otherwise it is set to 1 by default (in FitNesse v20190716), even though the docs say that a default port of 8085 will be used. The problem seems to be coming form the function '''getSlimPortBase''' here: https://github.com/unclebob/fitnesse/blob/24b1929a56e1e7370a4f8bfce5e7b1c156295115/src/fitnesse/testsystems/slim/SlimClientBuilder.java#L216
+
+!define manually.start.test.runner.on.debug {true}
+We set the above property to true so that FitNesse does not start the Slim server when we want to debug. We'll start the Slim server ourselves from VS Code when debugging fixtures and our SUT.
+
+!define slim.pool.size {1}
+We set the pool size to 1 to guarantee that when we debug and FitNesse tries to connect to our Slim server, that port 8085 is used.
+
+!1 Configure SLIM To Run Javascript Via SlimJS
+References:
+
+ * FitNesse.FullReferenceGuide.UserGuide.WritingAcceptanceTests.CustomizingTestExecution
+
+!define COMMAND_PATTERN {node ../src/SlimJS.js %p}
+Specifies the command that will be executed. !-SlimJS-! ([[link to !-GitHub-!][https://github.com/noamtcohen/SlimJS]]) is an Async Node.js !-SliM-! server for FitNesse.
+
+!1 Path To Fixtures
+!path ../fixtures
+The path to all of our test fixtures.
+
+
+!1 Tests
+
+!contents -R2 -g -p -f -h

@@ -4,3 +4,4 @@ fitnesse/FitNesseRoot/files
 fitnesse/FitNesseRoot/RecentChanges
 *.zip
 node_modules
+/test-fitnesse/

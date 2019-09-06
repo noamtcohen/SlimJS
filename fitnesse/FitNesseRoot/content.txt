@@ -1,17 +1,1 @@
-!define TEST_SYSTEM {slim}
-!define COMMAND_PATTERN {node ../src/SlimJS.js %p}
-
-!4 Configure SLIM
-
-See FitNesse.UserGuide.WritingAcceptanceTests.SliM for details on the following properties.
-
-!define slim.port {8085}
-We set slim.port to 8085, otherwise it is set to 1 by default (in FitNesse v20190716), even though the docs say that a default port of 8085 will be used. The problem seems to be coming form the function '''getSlimPortBase''' here: https://github.com/unclebob/fitnesse/blob/24b1929a56e1e7370a4f8bfce5e7b1c156295115/src/fitnesse/testsystems/slim/SlimClientBuilder.java#L216
-
-
-!define manually.start.test.runner.on.debug {true}
-We set the above property to true so that FitNesse does not start the Slim server when we want to debug. We'll start the Slim server ourselves from VS Code when debugging fixtures and our SUT.
-
-
-!define slim.pool.size {1}
-We set the pool size to 1 to guarantee that when we debug and FitNesse tries to connect to our Slim server, that port 8085 is used.
+!contents
