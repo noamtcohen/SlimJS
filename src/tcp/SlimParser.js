@@ -15,7 +15,7 @@ function SlimParser() {
     this.stringify = function (arr) {
         var arr = arrayToSlim(arr);
 
-        var result = pad(arr.length + 2) + ":[" + arr + "]";
+        var result = pad(Buffer.byteLength(arr, 'utf8') + 2) + ":[" + arr + "]";
 
         return result;
     }
