@@ -30,6 +30,10 @@ function SlimParser() {
                 var a = arrayToSlim(elm)
                 result += pad(a.length + 2) + ":[" + a + "]:";
             }
+            else if (typeof(elm) === "object") {
+                elm = JSON.stringify(elm);
+                result += pad(elm.length) + ":" + elm + ":";
+            }
             else {
                 elm = elm.toString();
                 result += pad(elm.length) + ":" + elm + ":";
