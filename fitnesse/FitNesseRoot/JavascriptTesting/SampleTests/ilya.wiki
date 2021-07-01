@@ -1,0 +1,21 @@
+---
+Test
+---
+|import|
+|ilya  |
+
+
+|script     |server|
+|$SERVER=   |self  |
+|startServer|true  |
+
+
+|script   |commander  |
+|$CMD_OUT=|fire|Gutman|
+
+|script|parser                        |
+|note  |This is the fire parsed output|
+|check |parse    |$CMD_OUT    |Hi!    |
+
+|script  |$SERVER|
+|shutdown|true   |

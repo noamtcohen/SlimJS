@@ -24,8 +24,9 @@ function ConnectionHandler(){
         _socket.write(VERSION_LINE);
         _socket.on('data', processData);
 
-        _socket.on("error",function(){
+        _socket.on("error",function(err){
             process.exit(0);
+            // console.log(new Date() + ": " + err)
         });
     };
 

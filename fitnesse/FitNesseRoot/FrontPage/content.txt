@@ -1,55 +1,17 @@
-!define TEST_SYSTEM {slim}
-!define COMMAND_PATTERN {node ../src/slimjs.js %p}
-!path ../fixtures
+!1 Welcome to [[FitNesse][FitNesse.FitNesse]]!
+!3 ''The fully integrated stand-alone acceptance testing framework and wiki.''
+# Here is a good place to add your first page (WikiWord). For example, MyTopLevelApplicationPage
 
-!contents -R2 -g -p -f -h
+To add your first "page", click the [[Edit][.FrontPage?edit]] button and add a [[!-WikiWord-!][.FitNesse.UserGuide.FitNesseWiki.WikiWord]] to the page.
 
-FitNesse.SuiteAcceptanceTests.SuiteSlimTests
+| '''To Learn More...''' |
+| [[User Guide][.FitNesse.UserGuide]] | ''Answer the rest of your questions here.'' |
+| [[A Two-Minute Example][.FitNesse.UserGuide.TwoMinuteExample]] | ''A brief example. Read this one next.'' |
+| [[Acceptance Tests][.FitNesse.SuiteAcceptanceTests]] | ''FitNesse's suite of Acceptance Tests'' |
+| [[Release Notes][.FitNesse.ReleaseNotes]] | ''Find out about FitNesse's new features'' |
 
+!note Release ${FITNESSE_VERSION}
 
-!1 SlimJS
+!1 Using FitNesse To Test Javascript
 
-
-|import             |
-|slim-fit-test      |
-|nested/require-test|
-|my-test-file       |
-|json-test          |
-
-
-|eg.Division                    |
-|numerator|denominator|quotient?|
-|10       |2          |$result= |
-|$result  |10         |0.5      |
-|12.6     |3          |4.2      |
-|100      |4          |25       |
-
-|should I buy milk                                              |
-|cash in wallet|credit card|pints of milk remaining|go to store?|
-|0             |no         |0                      |no          |
-|10            |no         |0                      |yes         |
-|0             |yes        |0                      |yes         |
-|10            |yes        |0                      |yes         |
-|0             |no         |1                      |no          |
-|10            |no         |1                      |no          |
-|0             |yes        |1                      |no          |
-|10            |yes        |1                      |no          |
-
-|script|Greeter|ctorArg                    |100                |
-|check |hello  |Hi                         |Hello Hi! (ctorArg)|
-|check |foo    |bar_100                                        |
-|check |json   |{x:"a-string",y:true,z:123}|a-string(123)      |
-
-|script|child_process      |
-|check |exec|node -v|v5.4.0|
-
-|Json                         |
-|json               |X and Y ?|
-|{x:1,y:2}          |3        |
-|{x:'Bar', y:' Baz'}|Bar Baz  |
-
-
-!include Ilya
-
-!include FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainTest
-!include FitNesse.SuiteAcceptanceTests.SuiteSlimTests.ChainWithInstanceTest
+Go to JavascriptTesting.

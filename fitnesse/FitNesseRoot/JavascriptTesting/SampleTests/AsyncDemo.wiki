@@ -1,0 +1,9 @@
+---
+Test
+---
+|import|
+|async/demo|
+
+|Script: async demo|
+|async call|
+|show|result|
