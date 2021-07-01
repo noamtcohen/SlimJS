@@ -24,6 +24,8 @@ function MakeExecutor(state){
 
         var args = instructionArgument.slice(4);
 
+        state.loadSymbolValuesToArguments(args);
+
         state.makeInstance(clazz, args,function(err,obj){
             if (err)
                 return cb([id, utils.toException(err)]);

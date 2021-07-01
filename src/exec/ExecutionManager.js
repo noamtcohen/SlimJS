@@ -58,6 +58,12 @@ function ExecutionManager(arrayOfSearchPaths){
         return null;
     }
 
+    this.loadSymbolValuesToArguments = function(args){
+        for (var i = 0; i < args.length; i++)
+            if (args[i].toString().indexOf('$') === 0)
+                args[i] = this.getSymbol(args[i].substr(1));
+    }
+
     function hasSutFunction(instance){
         if(!instance)
             return false;
