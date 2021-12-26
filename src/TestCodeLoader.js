@@ -36,9 +36,9 @@ function TestCodeLoader(arrayOfSearchPaths){
         }
     }
 
-    function loadFixture(file,cb){
+    async function loadFixture(file,cb){
         try {
-            theRequireArrayOfTheTestFixtures.push(require(file));
+            theRequireArrayOfTheTestFixtures.push(await import(file));
             cb(null);
         }
         catch (e) {
