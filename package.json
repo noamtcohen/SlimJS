@@ -12,6 +12,6 @@
   "author": "Noam T.Cohen",
   "license": "ISC",
   "dependencies": {
-    "json5": "^0.4.0"
+    "json5": "^2.2.2"
   }
 }
